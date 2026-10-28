@@ -2,7 +2,9 @@ import React, { useRef, useState } from 'react';
 import { 
   RotateCcw, 
   Download, 
-  Video
+  Video,
+  PlayCircle,
+  FileSpreadsheet
 } from 'lucide-react';
 
 interface Chapter {
@@ -12,7 +14,16 @@ interface Chapter {
   summary: string;
 }
 
-const CHAPTERS: Chapter[] = [
+const MOTION_CHAPTERS: Chapter[] = [
+  { id: '1', timeSec: 0, title: '1. Animated Document Streaming & Ingestion', summary: 'GSTR-3B, Bank e-statements, and KYC PDFs fly into the intake sandbox with moving laser scanlines.' },
+  { id: '2', timeSec: 24, title: '2. Trust Gate Comparator & 70% Gap', summary: 'Dynamic comparison bars contrast ₹4.0 Cr GST sales vs ₹1.2 Cr bank credits. Grade C stamped.' },
+  { id: '3', timeSec: 49, title: '3. Concurrent Wave Concurrency (asyncio)', summary: 'Parallel streams branch simultaneously to Cash Flow Agent and Forensic Fraud Agent.' },
+  { id: '4', timeSec: 71, title: '4. Forensic NetworkX Circular Money Loop', summary: 'Animated money packets travel between Sharma -> Verma -> Gupta. Directed cycle closed in 6 days.' },
+  { id: '5', timeSec: 96, title: '5. Incremental Re-Plan Ripple & Resizing', summary: 'Electricity bills uploaded: upstream stages cached (0ms), loan sizing animates live from ₹45L to ₹66L.' },
+  { id: '6', timeSec: 120, title: '6. Officer Approval & Zero-Disbursal Lock', summary: 'Priya Sharma approves to SANCTIONED in ledger. Physical zero-disbursal invariant verified.' },
+];
+
+const PRESENTATION_CHAPTERS: Chapter[] = [
   { id: '1', timeSec: 0, title: '1. Introduction & The Core Problem', summary: 'Inflated turnover fraud in MSME underwriting & forward-deployed copilot solution.' },
   { id: '2', timeSec: 27, title: '2. Case Study: Sharma Traders', summary: 'GST ₹4.0 Cr vs Bank ₹1.2 Cr (70% gap) flagged as Grade C.' },
   { id: '3', timeSec: 54, title: '3. Adaptive Parallel Agent Workflow', summary: 'Concurrent waves (Intake + Bureau, Cash Flow + Fraud) running side by side.' },
@@ -25,7 +36,12 @@ const CHAPTERS: Chapter[] = [
 
 export const DemoVideoScreen: React.FC = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [selectedVideo, setSelectedVideo] = useState<'motion' | 'presentation'>('motion');
   const [currentTime, setCurrentTime] = useState<number>(0);
+
+  const activeChapters = selectedVideo === 'motion' ? MOTION_CHAPTERS : PRESENTATION_CHAPTERS;
+  const videoSrc = selectedVideo === 'motion' ? '/prototype_motion_video.mp4' : '/demo_video.mp4';
+  const downloadName = selectedVideo === 'motion' ? 'msme_copilot_prototype_walkthrough.mp4' : 'msme_underwriting_copilot_demo.mp4';
 
   const handleSeek = (seconds: number) => {
     if (videoRef.current) {
@@ -42,30 +58,54 @@ export const DemoVideoScreen: React.FC = () => {
 
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
-      {/* Header */}
+      {/* Header and Video Switcher */}
       <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <h2 className="text-xl font-bold text-slate-900 tracking-tight">
-              3-Minute Prototype Pitch & Demo Video
+              Video Showcase: Prototype Walkthrough & Pitch
             </h2>
             <span className="bg-brand-100 text-brand-900 text-xs px-2.5 py-0.5 rounded-full font-semibold">
-              1080p HD &bull; Audio Narration
+              30 FPS Motion Graphics &bull; 1080p Full HD
             </span>
           </div>
           <p className="text-sm text-slate-500 mt-1">
-            Official walkthrough matching Section 14 of the specification for Virtusa Jatayu Season 6.
+            Real-time animated file transfers, concurrent agent wave execution, and forensic fraud cycle isolation.
           </p>
         </div>
 
-        <a
-          href="/demo_video.mp4"
-          download="msme_underwriting_copilot_demo.mp4"
-          className="flex items-center space-x-2 px-4 py-2.5 bg-brand-900 hover:bg-brand-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors shrink-0"
-        >
-          <Download className="w-4 h-4" />
-          <span>Download Standalone MP4 (4.4 MB)</span>
-        </a>
+        {/* Video Mode Selector & Download Button */}
+        <div className="flex flex-wrap items-center gap-2">
+          <div className="flex bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-semibold">
+            <button
+              onClick={() => { setSelectedVideo('motion'); setCurrentTime(0); }}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                selectedVideo === 'motion' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <PlayCircle className="w-3.5 h-3.5 text-brand-600" />
+              <span>30 FPS Animated Motion Video</span>
+            </button>
+            <button
+              onClick={() => { setSelectedVideo('presentation'); setCurrentTime(0); }}
+              className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-md transition-all ${
+                selectedVideo === 'presentation' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-500 hover:text-slate-800'
+              }`}
+            >
+              <FileSpreadsheet className="w-3.5 h-3.5 text-purple-600" />
+              <span>Pitch Deck Walkthrough</span>
+            </button>
+          </div>
+
+          <a
+            href={videoSrc}
+            download={downloadName}
+            className="flex items-center space-x-2 px-3.5 py-2 bg-brand-900 hover:bg-brand-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors shrink-0"
+          >
+            <Download className="w-4 h-4" />
+            <span>Download MP4</span>
+          </a>
+        </div>
       </div>
 
       {/* Video Player + Chapters Sidebar */}
@@ -74,19 +114,25 @@ export const DemoVideoScreen: React.FC = () => {
         <div className="lg:col-span-2 bg-slate-950 rounded-2xl overflow-hidden shadow-xl border border-slate-800 flex flex-col justify-between">
           <div className="relative aspect-video bg-black flex items-center justify-center">
             <video
+              key={videoSrc}
               ref={videoRef}
-              src="/demo_video.mp4"
+              src={videoSrc}
               controls
+              autoPlay
               onTimeUpdate={handleTimeUpdate}
               className="w-full h-full object-contain"
             />
           </div>
 
-          {/* Quick Player Bar */}
+          {/* Player Info Bar */}
           <div className="p-4 bg-slate-900 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-300">
             <div className="flex items-center space-x-2 font-mono">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-              <span>1080p HD 60fps &bull; Synchronized Voiceover</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span>
+                {selectedVideo === 'motion' 
+                  ? '30 FPS Motion Video: Real-time file transfers & circular loop animation' 
+                  : 'Official 3-Minute Slide Presentation with voiceover'}
+              </span>
             </div>
             <div className="flex items-center space-x-3">
               <button
@@ -106,14 +152,16 @@ export const DemoVideoScreen: React.FC = () => {
             <div className="flex justify-between items-center border-b border-slate-100 pb-2">
               <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wider flex items-center space-x-1.5">
                 <Video className="w-3.5 h-3.5 text-brand-600" />
-                <span>Video Chapters (3m 33s)</span>
+                <span>
+                  {selectedVideo === 'motion' ? 'Motion Chapters (6 Stages)' : 'Pitch Chapters (8 Scenes)'}
+                </span>
               </h3>
-              <span className="text-[11px] text-slate-400">Click to jump</span>
+              <span className="text-[11px] text-slate-400">Click to seek</span>
             </div>
 
             <div className="space-y-2 max-h-[460px] overflow-y-auto pr-1">
-              {CHAPTERS.map((ch, idx) => {
-                const nextChapter = CHAPTERS[idx + 1];
+              {activeChapters.map((ch, idx) => {
+                const nextChapter = activeChapters[idx + 1];
                 const isActive = currentTime >= ch.timeSec && (nextChapter ? currentTime < nextChapter.timeSec : true);
 
                 const minutes = Math.floor(ch.timeSec / 60);

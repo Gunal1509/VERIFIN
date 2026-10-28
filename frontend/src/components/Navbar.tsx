@@ -9,7 +9,8 @@ import {
   CheckCircle2, 
   Sliders, 
   UserCheck,
-  ChevronDown
+  ChevronDown,
+  Video
 } from 'lucide-react';
 import { microcopy } from '../copy/microcopy';
 import type { CaseData } from '../types';
@@ -42,6 +43,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'camProofPack', label: microcopy.navigation.camProofPack, icon: FileText },
     { id: 'decision', label: microcopy.navigation.decision, icon: CheckCircle2 },
     { id: 'operations', label: microcopy.navigation.operations, icon: Sliders },
+    { id: 'demoVideo', label: microcopy.navigation.demoVideo, icon: Video },
   ];
 
   return (

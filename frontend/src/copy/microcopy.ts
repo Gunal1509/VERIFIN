@@ -22,6 +22,7 @@ export const microcopy = {
     camProofPack: "Credit Memo & Proof Pack",
     decision: "Officer Decision",
     operations: "Operations & Policies",
+    demoVideo: "Pitch & Demo Video",
   },
 
   tooltips: {

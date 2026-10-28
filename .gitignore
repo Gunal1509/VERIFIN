@@ -36,6 +36,10 @@ yarn-error.log*
 dist/
 dist-ssr/
 
+# Build and temporary video assets
+demo_video_build/
+*.mp4
+
 # SQLite & local databases
 *.sqlite
 *.sqlite3

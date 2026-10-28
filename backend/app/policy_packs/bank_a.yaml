@@ -1,0 +1,20 @@
+name: "bank_a"
+description: "Bank A Standard MSME Policy Pack (Moderate Risk Appetite)"
+version: "1.0.0"
+
+limits:
+  min_dscr: 1.25
+  max_turnover_gap_pct: 20.0
+  max_loan_amount_inr: 10000000.0  # ₹1.0 Crore max ticket
+  min_loan_amount_inr: 500000.0    # ₹5.0 Lakh min ticket
+  min_bureau_score: 650
+  max_unbanked_cash_share_pct: 75.0
+  max_tenor_months: 84
+  standard_interest_rate_pct: 12.0
+  max_cycle_slippage_pct: 5.0
+  min_outside_world_share_pct: 30.0
+
+sector_exclusions:
+  - "Gambling & Betting"
+  - "Cryptocurrency Trading"
+  - "Unlicensed Money Lending"

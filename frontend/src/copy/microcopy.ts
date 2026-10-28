@@ -24,6 +24,7 @@ export const microcopy = {
     operations: "Operations & Policies",
     demoVideo: "Pitch & Demo Video",
     animatedFraudFlow: "Animated Fraud Flow",
+    architecture: "Backend Architecture",
   },
 
   tooltips: {

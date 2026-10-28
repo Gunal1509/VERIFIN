@@ -4,7 +4,8 @@ import {
   Download, 
   Video,
   PlayCircle,
-  FileSpreadsheet
+  FileSpreadsheet,
+  Presentation
 } from 'lucide-react';
 
 interface Chapter {
@@ -104,6 +105,15 @@ export const DemoVideoScreen: React.FC = () => {
           >
             <Download className="w-4 h-4" />
             <span>Download MP4</span>
+          </a>
+
+          <a
+            href="/msme_underwriting_copilot_presentation.pptx"
+            download="msme_underwriting_copilot_presentation.pptx"
+            className="flex items-center space-x-2 px-3.5 py-2 bg-emerald-700 hover:bg-emerald-600 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors shrink-0"
+          >
+            <Presentation className="w-4 h-4" />
+            <span>Download PPTX Deck</span>
           </a>
         </div>
       </div>

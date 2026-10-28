@@ -1,0 +1,21 @@
+name: "bank_b"
+description: "Bank B Conservative MSME Policy Pack (Strict Risk Appetite)"
+version: "1.0.0"
+
+limits:
+  min_dscr: 1.40                   # Higher DSCR floor
+  max_turnover_gap_pct: 10.0       # Tighter turnover gap tolerance
+  max_loan_amount_inr: 5000000.0   # ₹50 Lakh max ticket cap
+  min_loan_amount_inr: 1000000.0   # ₹10.0 Lakh min ticket
+  min_bureau_score: 720            # Higher credit score requirement
+  max_unbanked_cash_share_pct: 50.0
+  max_tenor_months: 60
+  standard_interest_rate_pct: 10.5
+  max_cycle_slippage_pct: 2.0
+  min_outside_world_share_pct: 50.0
+
+sector_exclusions:
+  - "Gambling & Betting"
+  - "Cryptocurrency Trading"
+  - "Unlicensed Money Lending"
+  - "Real Estate Speculation"

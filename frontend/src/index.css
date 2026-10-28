@@ -43,3 +43,27 @@ body {
 .glow-amber-pulse {
   animation: pulse-amber 2s infinite ease-in-out;
 }
+
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-dash-flow {
+  stroke-dasharray: 8 6;
+  animation: dash-flow 1.5s linear infinite;
+}
+
+@keyframes pulse-blue {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(48, 130, 252, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(48, 130, 252, 0);
+  }
+}
+
+.glow-blue-pulse {
+  animation: pulse-blue 1.8s infinite ease-in-out;
+}

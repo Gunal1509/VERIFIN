@@ -9,6 +9,7 @@ import { CamProofPackScreen } from './screens/CamProofPackScreen';
 import { DecisionScreen } from './screens/DecisionScreen';
 import { OperationsScreen } from './screens/OperationsScreen';
 import { DemoVideoScreen } from './screens/DemoVideoScreen';
+import { AnimatedScenarioScreen } from './screens/AnimatedScenarioScreen';
 import { mockCases } from './data/mockCases';
 
 export const App: React.FC = () => {
@@ -92,6 +93,10 @@ export const App: React.FC = () => {
             onTogglePolicyPack={handleTogglePolicyPack}
             hasAppliedEvidence={selectedCase.id === 'case_sharma_traders' && hasAppliedSharmaEvidence}
           />
+        )}
+
+        {activeScreen === 'animatedFraudFlow' && (
+          <AnimatedScenarioScreen />
         )}
 
         {activeScreen === 'demoVideo' && (

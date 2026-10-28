@@ -23,6 +23,7 @@ export const microcopy = {
     decision: "Officer Decision",
     operations: "Operations & Policies",
     demoVideo: "Pitch & Demo Video",
+    animatedFraudFlow: "Animated Fraud Flow",
   },
 
   tooltips: {

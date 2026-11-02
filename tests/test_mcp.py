@@ -112,9 +112,9 @@ def test_mcp_zero_disbursal_guarantee():
 
 
 def test_connector_registry_metadata():
-    """Verify registry lists all 5 mock connectors with tools and permissions."""
+    """Verify registry lists all core mock connectors with tools and permissions."""
     connectors = list_connectors()
-    assert len(connectors) == 5
+    assert len(connectors) >= 5
     ids = [c["id"] for c in connectors]
     assert "gst_udyam" in ids
     assert "credit_bureau" in ids

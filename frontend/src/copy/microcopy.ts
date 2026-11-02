@@ -28,6 +28,7 @@ export const microcopy = {
     demoVideo: "Pitch & Demo Video",
     animatedFraudFlow: "Animated Fraud Flow",
     architecture: "System Architecture",
+    integrations: "Partner & Bank Integration",
   },
 
   tooltips: {
@@ -452,6 +453,60 @@ export const microcopy = {
         },
       ],
       sharmaSummary: "Sharma Traders Demo: Safe initial offer ₹45 Lakh (DSCR 0.91). With verified electricity bills: ₹66.5 Lakh (DSCR 1.28).",
+    },
+  },
+
+  integrationPortal: {
+    tag: "MODEL CONTEXT PROTOCOL (MCP) ONBOARDING",
+    title: "Partner & Institution Integration Gateway",
+    subtitle: "Connect your Core Banking System, NBFC Digital Lending Platform, or Third-Party Data Provider to Verifin with cryptographic trust verification and strict zero-disbursal safeguards.",
+    categories: {
+      bank: "Bank Core Banking (Finacle / BaNCS / Flexcube)",
+      finance: "NBFC & Digital Lending Fintech",
+      thirdParty: "Third-Party Data & Account Aggregator",
+    },
+    quickPresets: {
+      sbi: "State Bank of India (Finacle 11.x)",
+      bajaj: "Bajaj Finance MSME (Digital LOS)",
+      setu: "Setu Account Aggregator Gateway",
+      custom: "Clean Custom Integration",
+    },
+    fields: {
+      institutionType: "Institution Classification",
+      institutionName: "Institution Legal Name",
+      regulatoryId: "Regulatory License / RBI Reg / CIN / LEI",
+      serviceCategory: "Service Classification",
+      protocol: "Integration Protocol / Transport",
+      endpointUrl: "Gateway Endpoint URL",
+      coreBanking: "Core Banking / LOS Platform",
+      permittedScopes: "Permitted MCP Tool Scopes",
+      zeroDisbursalCheckbox: "I acknowledge and agree that Verifin enforces a strictly locked Zero-Disbursal policy. Underwriting results are written to double-entry ledger only as PENDING_APPROVAL. Fund release / movement routes are physically absent.",
+      injectionQuarantineCheckbox: "Enable multi-variant prompt injection quarantine on all payload streams (treat all payload data as untrusted data).",
+    },
+    trustEvidence: {
+      title: "Trust & Security Evidence Upload",
+      subtitle: "Attach cryptographic certificates and regulatory credentials for automated Trust Gate verification.",
+      licenseLabel: "RBI Regulatory License / Certificate of Incorporation",
+      auditLabel: "SOC-2 Type II or ISO 27001 Security Audit Attestation",
+      mtlsCertLabel: "Public mTLS Certificate / Transport Key (.pem / .crt)",
+      policyPackLabel: "Credit Risk Policy Parameters (Optional YAML)",
+      verifiedNote: "Files undergo automatic SHA-256 fingerprinting and prompt injection scanning before credential generation.",
+    },
+    verification: {
+      verifyAction: "Verify & Authenticate Integration",
+      verifying: "Running Multi-Layer Verification...",
+      checks: [
+        { id: "checksum", label: "SHA-256 Cryptographic Checksum Calculation" },
+        { id: "quarantine", label: "Prompt Injection & Untrusted Data Boundary Scan" },
+        { id: "zeroDisbursal", label: "Zero-Disbursal Safety Policy Verification" },
+        { id: "trustGate", label: "Trust Gate Grade & Scope Compatibility Calculation" },
+      ],
+      verifiedTitle: "Integration Authenticated & Validated",
+      tokenLabel: "Verified MCP Bearer Token",
+      gradeLabel: "Assigned Trust Gate Grade",
+      addToRegistryAction: "Add to Active Connectors Registry",
+      addedSuccess: "Successfully registered to active connectors! Visible across the platform.",
+      downloadManifestAction: "Download MCP Manifest (.json)",
     },
   },
 } as const;

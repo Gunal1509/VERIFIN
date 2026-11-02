@@ -14,6 +14,7 @@ import { OperationsScreen } from './screens/OperationsScreen';
 import { DemoVideoScreen } from './screens/DemoVideoScreen';
 import { AnimatedScenarioScreen } from './screens/AnimatedScenarioScreen';
 import { ArchitectureScreen } from './screens/ArchitectureScreen';
+import { IntegrationScreen } from './screens/IntegrationScreen';
 import { mockCases } from './data/mockCases';
 
 export const App: React.FC = () => {
@@ -82,6 +83,13 @@ export const App: React.FC = () => {
             onOpenCockpit={() => setActiveScreen('queue')}
             onOpenAgentTheatre={() => setActiveScreen('agentTheatre')}
             onOpenEntryScene={() => setShowEntryScene(true)}
+            onOpenIntegrations={() => setActiveScreen('integrations')}
+          />
+        )}
+
+        {activeScreen === 'integrations' && (
+          <IntegrationScreen
+            onOpenConnectorsTable={() => setActiveScreen('landing')}
           />
         )}
 

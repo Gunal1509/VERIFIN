@@ -6,7 +6,7 @@ Name, Tools Offered, Access Permissions, and Mock/Real Status.
 
 from __future__ import annotations
 
-from typing import Dict, List, Literal
+from typing import Any, Dict, List, Literal, Optional
 from pydantic import BaseModel, Field
 
 
@@ -19,6 +19,11 @@ class ConnectorMetadata(BaseModel):
     tools_offered: List[str]
     description: str
     latency_sla_ms: int
+    endpoint: Optional[str] = None
+    transport: Optional[str] = None
+    security_scope: Optional[str] = None
+    trust_grade: Optional[str] = "Grade A"
+    verified_token: Optional[str] = None
 
 
 CONNECTORS_REGISTRY: List[ConnectorMetadata] = [
@@ -78,3 +83,15 @@ CONNECTORS_REGISTRY: List[ConnectorMetadata] = [
 def list_connectors() -> List[Dict[str, Any]]:
     """Return list of all registered connectors with metadata."""
     return [c.model_dump() for c in CONNECTORS_REGISTRY]
+
+
+def register_dynamic_connector(connector: ConnectorMetadata) -> ConnectorMetadata:
+    """Dynamically register a newly verified bank or partner connector."""
+    # Check if id already exists; update if so
+    for idx, existing in enumerate(CONNECTORS_REGISTRY):
+        if existing.id == connector.id:
+            CONNECTORS_REGISTRY[idx] = connector
+            return connector
+    CONNECTORS_REGISTRY.append(connector)
+    return connector
+

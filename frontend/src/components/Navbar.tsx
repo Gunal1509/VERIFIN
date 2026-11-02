@@ -15,7 +15,8 @@ import {
   RefreshCw,
   Menu,
   X,
-  Sparkles
+  Sparkles,
+  PlugZap
 } from 'lucide-react';
 import { microcopy } from '../copy/microcopy';
 import type { CaseData } from '../types';
@@ -45,6 +46,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const mainNavItems = [
     { id: 'landing', label: microcopy.navigation.landing, icon: Home },
+    { id: 'integrations', label: microcopy.navigation.integrations, icon: PlugZap },
     { id: 'agentTheatre', label: microcopy.navigation.agentTheatre, icon: PlayCircle },
     { id: 'queue', label: microcopy.navigation.queue, icon: Building2 },
     { id: 'workflow', label: microcopy.navigation.workflow, icon: GitFork },

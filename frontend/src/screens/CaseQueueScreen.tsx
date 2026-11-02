@@ -23,6 +23,9 @@ export const CaseQueueScreen: React.FC<CaseQueueScreenProps> = ({ cases, onSelec
 
   const copy = microcopy.screens.queue;
 
+  const totalSavedMinutes = cases.reduce((acc, c) => acc + (c.timeSavedMinutes || 0), 0);
+  const totalSavedHours = (totalSavedMinutes / 60).toFixed(1);
+
   const filteredCases = cases.filter((c) => {
     const matchesFilter = selectedFilter === 'all' || c.status === selectedFilter;
     const matchesSearch = 
@@ -66,23 +69,23 @@ export const CaseQueueScreen: React.FC<CaseQueueScreenProps> = ({ cases, onSelec
   };
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-6 rounded-xl border border-slate-200 shadow-xs">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs">
         <div>
           <h2 className="text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
           <p className="text-sm text-slate-500 mt-1">{copy.subtitle}</p>
         </div>
         <div className="flex items-center space-x-3 text-xs bg-slate-50 px-4 py-2.5 rounded-lg border border-slate-200">
           <Clock className="w-4 h-4 text-brand-600" />
-          <span className="text-slate-600">Total Officer Time Saved Today:</span>
-          <span className="font-bold text-brand-900 text-sm">17.8 Hours</span>
+          <span className="text-slate-600">Total Officer Time Saved Today (Simulated Benchmark):</span>
+          <span className="font-bold text-brand-900 text-sm">{totalSavedHours} Hours</span>
         </div>
       </div>
 
       {/* Filter Chips & Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="flex items-center space-x-2 overflow-x-auto w-full sm:w-auto pb-2 sm:pb-0">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
+        <div className="flex items-center space-x-2 overflow-x-auto touch-scroll w-full sm:w-auto pb-1 sm:pb-0">
           {[
             { id: 'all', label: 'All Cases' },
             { id: 'needsEvidence', label: copy.statusChips.needsEvidence },

@@ -28,21 +28,21 @@ const INNOVATIONS: Innovation[] = [
     id: 'dag',
     number: '01',
     title: 'Adaptive DAG & Topological Wave Scheduling',
-    badge: '42% Turnaround Acceleration',
+    badge: '17.7% Turnaround Acceleration',
     icon: GitFork,
     problem: 'Traditional credit pipelines are hardcoded sequential chains (A -> B -> C). If any document is slow or missing, the entire process freezes.',
-    solution: 'Our orchestrator constructs a dynamic NetworkX Directed Acyclic Graph per case. Stages whose inputs are ready execute concurrently via asyncio.gather (Wave 1: Intake + Bureau; Wave 3: Cashflow + Fraud). Parallel results merge in a fixed alphabetical order for 100% deterministic replay.',
-    impact: 'Reduces end-to-end processing time from minutes to 1.84s while guaranteeing bit-level reproducibility.',
+    solution: 'Our orchestrator constructs a dynamic NetworkX Directed Acyclic Graph per case. Stages whose inputs are ready execute concurrently via asyncio.gather (Wave 0: Intake + Bureau; Wave 2: Cashflow + Fraud). Parallel results merge in a fixed alphabetical order for 100% deterministic replay.',
+    impact: 'Reduces end-to-end processing latency to 284ms in parallel waves vs 345ms sequentially while guaranteeing bit-level reproducibility.',
   },
   {
     id: 'replan',
     number: '02',
     title: 'Incremental Re-Planning with Input-Hash Caching',
-    badge: '66.7% Compute Saved',
+    badge: '36.4% Pipeline Steps Preserved',
     icon: RefreshCw,
     problem: 'When a borrower provides new evidence (e.g. utility bills), existing tools rerun the entire multi-agent pipeline from scratch, incurring massive token costs and delays.',
-    solution: 'Every stage declares input dependencies and implements a deterministic input_hash(case) -> str. When new evidence arrives, the replanner marks only the changed stage and its topological descendants as STALE. Upstream stages (Intake, Bureau, Trust Gate, Fraud) remain CACHED with 0ms execution.',
-    impact: 'Only 3 of 9 stages rerun when electricity bills arrive. Approved loan updates from ₹45L to ₹66L in 340ms, avoiding 66.7% redundant computation.',
+    solution: 'Every stage declares input dependencies and implements a deterministic input_hash(case) -> str. When new evidence arrives, the replanner marks only the changed stage and its topological descendants as STALE. 4 upstream/independent stages (Intake, Bureau, Trust Gate, Fraud) remain CACHED with 0ms execution.',
+    impact: 'Only 7 of 11 stages rerun when electricity bills arrive while 4 stages stay in cache. Approved loan updates from ₹45L to ₹66.5L in 340ms, preserving 36.4% of pipeline steps.',
   },
   {
     id: 'trustgate',
@@ -115,9 +115,9 @@ export const ArchitectureScreen: React.FC = () => {
   const ActiveIcon = activeInnovation.icon;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-8">
+    <div className="max-w-7xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-8">
       {/* Header */}
-      <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white p-4 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <h2 className="text-xl font-bold text-slate-900 tracking-tight">

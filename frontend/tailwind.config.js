@@ -4,26 +4,46 @@ export default {
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         brand: {
-          50: '#eef6ff',
-          100: '#d9ecff',
-          200: '#bcdeff',
-          300: '#8ec8ff',
-          400: '#59a7ff',
-          500: '#3082fc',
-          600: '#1a64f0',
-          700: '#144edc',
-          800: '#1740b2',
-          900: '#19398c',
-          950: '#122355', // Deep trustworthy banking blue
+          50: '#f0f7ff',
+          100: '#e0effe',
+          200: '#bae0fd',
+          300: '#7cc5fb',
+          400: '#38a4f8',
+          500: '#0e87eb',
+          600: '#026bc9',
+          700: '#0355a3',
+          800: '#074886',
+          900: '#0c3d6f',
+          950: '#07274a', // Deep institutional navy
+        },
+        fintech: {
+          dark: '#0B1120',
+          card: '#111827',
+          surface: '#1F2937',
+          border: '#374151',
+          emerald: '#10B981',
+          amber: '#F59E0B',
+          rose: '#EF4444',
+          slate: '#64748B',
         },
         slate: {
           850: '#151e2e',
         }
       },
+      fontFamily: {
+        sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+        mono: ['JetBrains Mono', 'Fira Code', 'Menlo', 'Consolas', 'monospace'],
+        display: ['Cal Sans', 'Cabinet Grotesk', 'Inter', 'sans-serif'],
+      },
+      boxShadow: {
+        'fintech': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1)',
+        'fintech-lg': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)',
+      }
     },
   },
   plugins: [],

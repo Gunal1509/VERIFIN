@@ -1,4 +1,4 @@
-"""Pytest configuration and shared fixtures for MSME Underwriting Copilot."""
+"""Pytest configuration and shared fixtures for Verifin: An Adaptive Multi-Agent Financial Intelligence System."""
 
 import sys
 from pathlib import Path

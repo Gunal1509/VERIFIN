@@ -1,6 +1,6 @@
 """
 Generate a professional, high-impact PowerPoint presentation (.pptx)
-for the MSME Underwriting Copilot with real embedded screenshots.
+for Verifin: An Adaptive Multi-Agent Financial Intelligence System with real embedded screenshots.
 Tailored for Virtusa Jatayu Season 6 (Forward-Deployed Engineering).
 """
 
@@ -213,8 +213,8 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     tf_t1 = tb_title1.text_frame
     tf_t1.word_wrap = True
     p_t1 = tf_t1.paragraphs[0]
-    p_t1.text = "MSME Underwriting Copilot"
-    p_t1.font.size = Pt(40)
+    p_t1.text = "Verifin"
+    p_t1.font.size = Pt(44)
     p_t1.font.bold = True
     p_t1.font.color.rgb = COLOR_WHITE
     p_t1.font.name = FONT_FAMILY
@@ -224,14 +224,14 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     tf_sub1 = tb_sub1.text_frame
     tf_sub1.word_wrap = True
     p_sub1 = tf_sub1.paragraphs[0]
-    p_sub1.text = "Adaptive Parallel Multi-Agent Credit Engine with Incremental Re-Planning"
+    p_sub1.text = "An Adaptive Multi-Agent Financial Intelligence System"
     p_sub1.font.size = Pt(19)
     p_sub1.font.color.rgb = COLOR_CYAN_400
     p_sub1.font.name = FONT_FAMILY
 
     # Three Core Pillar Cards
     pillars = [
-        ("⚡ 42% FASTER TURNAROUND", "Dynamic NetworkX DAG schedules independent stages into concurrent waves (Intake + Bureau, Cashflow + Fraud).", COLOR_BLUE_600),
+        ("⚡ 17.7% FASTER TURNAROUND", "Dynamic NetworkX DAG schedules independent stages into concurrent waves (Intake + Bureau, Cashflow + Fraud).", COLOR_BLUE_600),
         ("🛡️ HONEST BORROWER GATE", "Deterministic Grade B protects cash-heavy micro-merchants without bank trail. Strictly never called fraud.", COLOR_EMERALD_500),
         ("🔒 ZERO-DISBURSAL GUARANTEE", "System proposes; an authorized credit officer always decides. Physical code invariant: NO money release route.", COLOR_AMBER_500),
     ]
@@ -304,8 +304,8 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     # Right Column: The Forward-Deployed Copilot Solution
     add_info_card(
         slide2, Inches(6.8), Inches(1.2), Inches(5.9), Inches(1.65),
-        "Our Copilot: 42% Faster via Parallel Agent Waves",
-        "Instead of a slow sequential queue, independent agents run concurrently in topological waves (Intake + Bureau, Cashflow + Fraud). Complete underwriting finishes in under 2 seconds.",
+        "Our Copilot: 17.7% Faster via Parallel Agent Waves",
+        "Instead of a slow sequential queue, independent agents run concurrently in topological waves (Intake + Bureau, Cashflow + Fraud). Complete underwriting finishes in 284ms.",
         COLOR_BLUE_100, COLOR_BLUE_600, COLOR_BLUE_600
     )
     add_info_card(
@@ -399,19 +399,19 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     add_info_card(
         slide5, Inches(0.6), Inches(1.2), Inches(4.8), Inches(1.7),
         "The Problem with New Evidence",
-        "When a borrower uploads a utility bill or invoice later, other AI systems rerun all 9 agents from scratch, wasting compute and confusing the loan officer.",
+        "When a borrower uploads a utility bill or invoice later, other AI systems rerun all 11 agents from scratch, wasting compute and confusing the loan officer.",
         COLOR_ROSE_100, COLOR_ROSE_500, COLOR_ROSE_500
     )
     add_info_card(
         slide5, Inches(0.6), Inches(3.05), Inches(4.8), Inches(1.85),
         "What We Proposed Uniquely",
-        "Every stage declares its inputs and computes an SHA-256 input hash. When new evidence arrives, the ReplanEngine marks only the changed node and its downstream descendants as STALE.\n• Reused (0ms): Intake, Bureau, Trust Gate, Fraud\n• Rerun: Cashflow -> Risk -> Structuring",
+        "Every stage declares its inputs and computes an SHA-256 input hash. When new evidence arrives, the ReplanEngine marks only the changed node and its downstream descendants as STALE.\n• Reused (0ms from cache): 4 stages (Intake, Bureau, Trust Gate, Fraud)\n• Rerun: 7 stages (Cashflow -> Risk -> Policy -> Structuring -> CAM -> Ledger -> Human)",
         COLOR_BLUE_100, COLOR_BLUE_600, COLOR_BLUE_600
     )
     add_info_card(
         slide5, Inches(0.6), Inches(5.05), Inches(4.8), Inches(1.5),
         "Sharma Traders Live Result",
-        "💡 66.7% of compute avoided! Sizing dynamically recalculates from ₹45 Lakh to ₹66 Lakh in just 340 milliseconds.",
+        "💡 36.4% of pipeline steps preserved (4 cached / 7 redone)! Sizing dynamically recalculates from ₹45 Lakh to ₹66.5 Lakh in just 340 milliseconds.",
         COLOR_EMERALD_100, COLOR_EMERALD_500, COLOR_EMERALD_500
     )
 
@@ -635,8 +635,8 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     )
     add_info_card(
         slide12, Inches(0.6), Inches(3.05), Inches(4.8), Inches(1.85),
-        "Tier 3: 10 Specialized Stage Agents",
-        "Modular agents under backend/app/stages/:\n• Intake, Bureau/KYC, Trust Gate\n• Cashflow, Fraud NetworkX, Risk DSCR\n• YAML Policy, PV Structuring, CAM, Ledger",
+        "Tier 3: 11 Specialized Stage Agents",
+        "Modular agents under backend/app/stages/:\n• Intake, Bureau/KYC, Trust Gate\n• Cashflow, Fraud NetworkX, Risk Scoring\n• YAML Policy, PV Structuring, CAM, Ledger, Human",
         COLOR_WHITE, COLOR_SLATE_200, COLOR_SLATE_800
     )
     add_info_card(
@@ -699,7 +699,7 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
     tb_t14 = slide14.shapes.add_textbox(Inches(1.0), Inches(0.8), Inches(11.3), Inches(1.0))
     tf_t14 = tb_t14.text_frame
     p_t14 = tf_t14.paragraphs[0]
-    p_t14.text = "Why MSME Underwriting Copilot Wins"
+    p_t14.text = "Why Verifin Wins"
     p_t14.font.size = Pt(32)
     p_t14.font.bold = True
     p_t14.font.color.rgb = COLOR_WHITE
@@ -715,8 +715,8 @@ def build_presentation(output_path="msme_underwriting_copilot_presentation.pptx"
 
     # Summary Comparison Grid (4 Cards)
     grid_cards = [
-        ("⚡ 42% Faster Turnaround", "Parallel wave scheduling with NetworkX DAG executes independent agents concurrently, slashing processing time to <2 seconds.", COLOR_BLUE_600),
-        ("🔄 66.7% Compute Saved", "Incremental re-planning via SHA-256 input hashing only reruns affected downstream stages when utility bills arrive.", COLOR_EMERALD_500),
+        ("⚡ 17.7% Faster Turnaround", "Parallel wave scheduling with NetworkX DAG executes independent agents concurrently, slashing processing latency to 284ms.", COLOR_BLUE_600),
+        ("🔄 36.4% Pipeline Steps Preserved", "Incremental re-planning via SHA-256 input hashing only reruns affected stages (7 redone, 4 reused from cache).", COLOR_EMERALD_500),
         ("🛡️ Honest Borrower Protection", "Deterministic Trust Gate safeguards cash retail businesses under Non-Negotiable Rule 7 — never labelled fraud.", COLOR_AMBER_500),
         ("🔒 Zero Disbursal Guarantee", "Physical code invariant: no money release route exists. Fully cited CAM proof pack; credit officer always decides.", COLOR_ROSE_500),
     ]

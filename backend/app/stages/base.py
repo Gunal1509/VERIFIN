@@ -1,12 +1,16 @@
-"""Stage Protocol and Execution Interfaces for MSME Underwriting Copilot.
+"""Stage Protocol and Execution Interfaces for Verifin.
 
-Matches Section 2.4 of docs/SPEC.md:
-Every stage is an independent, single-purpose module that declares its prerequisite
-inputs, computes an input hash for incremental re-planning, and produces a StageResult.
+Strictly adheres to Stage 1.1 Requirements:
+Each stage declares: name, deps, reads (outside inputs such as evidence and policy_pack),
+needed(case), inputs(case), and run(case, ctx).
+input_hash(case) = SHA-256 over a canonical JSON of the stage's declared inputs,
+including upstream stage outputs, so a change spreads downstream by itself.
 """
 
 from __future__ import annotations
 
+import hashlib
+import json
 from typing import Any, Dict, List, Protocol, runtime_checkable
 from pydantic import BaseModel, Field
 from backend.app.core.casefile import CaseFile, StageStatus
@@ -37,12 +41,48 @@ class StageResult(BaseModel):
 class Stage(Protocol):
     """Protocol implemented by every stage in backend/app/stages/."""
     name: str
-    requires: List[str]  # Upstream stage names or case-file keys
+    deps: List[str]    # Upstream stage names
+    reads: List[str]   # Outside inputs (e.g., "raw_documents", "evidence", "policy_pack")
+
+    def needed(self, case: CaseFile) -> bool:
+        """Return True if this stage should run for the current case."""
+        ...
+
+    def inputs(self, case: CaseFile) -> Dict[str, Any]:
+        """Declared inputs read from outside data or casefile."""
+        ...
 
     def input_hash(self, case: CaseFile) -> str:
-        """Compute deterministic hash of this stage's inputs to check staleness."""
+        """Compute deterministic SHA-256 over canonical JSON of declared inputs + upstream outputs."""
         ...
 
     async def run(self, case: CaseFile, ctx: RunContext) -> StageResult:
         """Execute stage logic and mutate/update the case file atomically."""
         ...
+
+
+class BaseStage:
+    """Base class providing default canonical input_hash implementation."""
+    name: str = ""
+    deps: List[str] = []
+    reads: List[str] = []
+
+    def needed(self, case: CaseFile) -> bool:
+        return True
+
+    def inputs(self, case: CaseFile) -> Dict[str, Any]:
+        return {}
+
+    def input_hash(self, case: CaseFile) -> str:
+        """Compute SHA-256 over canonical JSON of declared inputs + upstream stage output hashes."""
+        payload: Dict[str, Any] = {
+            "stage": self.name,
+            "reads": self.inputs(case),
+            "deps": {},
+        }
+        if case.plan and case.plan.stages:
+            for dep in sorted(self.deps):
+                rec = case.plan.stages.get(dep)
+                payload["deps"][dep] = rec.output_hash if rec else ""
+        serialized = json.dumps(payload, sort_keys=True, default=str)
+        return hashlib.sha256(serialized.encode("utf-8")).hexdigest()

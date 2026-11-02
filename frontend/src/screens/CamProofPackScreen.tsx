@@ -21,8 +21,8 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
   const [activeCitation, setActiveCitation] = useState<string | null>(null);
   const copy = microcopy.screens.camProofPack;
 
-  const currentLoan = hasAppliedEvidence ? 6_600_000 : currentCase.decision.loanAmountInr;
-  const currentCash = hasAppliedEvidence ? 210_000 : currentCase.decision.threeNumbers.verifiedMonthlyCashInr;
+  const currentLoan = hasAppliedEvidence ? 6_650_000 : currentCase.decision.loanAmountInr;
+  const currentCash = hasAppliedEvidence ? 220_000 : currentCase.decision.threeNumbers.verifiedMonthlyCashInr;
   const currentDscr = hasAppliedEvidence ? 1.25 : currentCase.decision.threeNumbers.dscr;
 
   const handlePrint = () => {
@@ -30,21 +30,21 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 space-y-6">
+    <div className="max-w-5xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header and Print Action */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:hidden">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
             <span className="bg-emerald-100 text-emerald-900 text-xs px-2.5 py-0.5 rounded-full font-semibold">
               Citation Validator Verified
             </span>
           </div>
-          <p className="text-sm text-slate-500 mt-1">{copy.subtitle}</p>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">{copy.subtitle}</p>
         </div>
         <button
           onClick={handlePrint}
-          className="flex items-center space-x-2 px-4 py-2 bg-brand-900 text-white hover:bg-brand-800 text-xs font-semibold rounded-lg shadow-xs transition-colors"
+          className="flex items-center justify-center space-x-2 px-4 py-2 bg-brand-900 text-white hover:bg-brand-800 text-xs font-semibold rounded-lg shadow-xs transition-colors cursor-pointer w-full sm:w-auto"
         >
           <Printer className="w-4 h-4" />
           <span>{copy.printAction}</span>
@@ -52,7 +52,7 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
       </div>
 
       {/* The Printable One-Page Proof Pack Document */}
-      <div className="bg-white rounded-2xl border border-slate-200 shadow-sm p-8 space-y-8 print:border-none print:shadow-none print:p-0">
+      <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-8 space-y-6 sm:space-y-8 print:border-none print:shadow-none print:p-0">
         {/* Memo Meta Header */}
         <div className="flex justify-between items-start border-b border-slate-200 pb-6">
           <div>
@@ -213,7 +213,7 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
         {/* Human Sign-off Bottom line */}
         <div className="pt-6 border-t border-slate-200 flex justify-between items-end text-xs text-slate-500">
           <div>
-            <p className="font-semibold text-slate-700">MSME Underwriting Copilot &bull; Virtusa Jatayu</p>
+            <p className="font-semibold text-slate-700">{microcopy.app.title} &bull; Virtusa Jatayu</p>
             <p className="text-[11px] text-slate-400">Model drafts narrative; deterministic Python computed limits & DSCR.</p>
           </div>
           <div className="text-right">

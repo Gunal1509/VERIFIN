@@ -41,16 +41,16 @@ const UNIQUE_FEATURES = [
     icon: GitFork,
     color: 'border-blue-500 bg-blue-50/40 text-blue-900',
     summary: 'No hardcoded sequential agent chains. The planner builds a custom graph per case and schedules parallel waves.',
-    details: 'Stages whose inputs are ready execute concurrently (e.g., Document Intake and Bureau checks run simultaneously in Wave 1; Cash Flow and Fraud Detection run side-by-side in Wave 3). Cuts processing time by 42%.',
+    details: 'Stages whose inputs are ready execute concurrently (e.g., Document Intake and Bureau checks run simultaneously in Wave 1; Cash Flow and Fraud Detection run side-by-side in Wave 3). Cuts turnaround latency by 17.7%.',
   },
   {
     id: 'incremental_replan',
     title: '2. Incremental Re-Planning with Input-Hash Caching',
-    badge: '66.7% Compute Saved',
+    badge: '36.4% Pipeline Saved',
     icon: RefreshCw,
     color: 'border-amber-500 bg-amber-50/40 text-amber-900',
     summary: 'When new evidence arrives, only stale downstream stages rerun. Upstream results are reused from cache.',
-    details: 'Each stage computes a SHA-256 hash of its declared inputs. When electricity bills are added, upstream steps (Intake, Bureau, Trust Gate, Fraud) keep their cached outputs (0ms), while only Cash Flow, Risk, and Structuring recompute.',
+    details: 'Each stage computes a SHA-256 hash of its declared inputs. When electricity bills are added, 4 upstream steps (Intake, Bureau, Trust Gate, Fraud) keep their cached outputs (0ms), while only 7 downstream stages (Cash Flow, Risk, Policy, Structuring, CAM, Ledger, Human) recompute.',
   },
   {
     id: 'trust_gate',
@@ -86,7 +86,7 @@ const UNIQUE_FEATURES = [
     icon: Lock,
     color: 'border-purple-500 bg-purple-50/40 text-purple-900',
     summary: 'The system proposes; the credit officer decides. Disbursal route is physically absent in code.',
-    details: 'The mock ledger only writes PENDING_APPROVAL until an authenticated credit officer signs off. An automated test scans every API route and asserts no fund disbursal endpoint exists anywhere.',
+    details: 'The ledger only writes PENDING_APPROVAL until an authenticated credit officer signs off. An automated test scans every API route and asserts no fund disbursal endpoint exists anywhere.',
   },
 ];
 
@@ -144,7 +144,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
     { id: '5', wave: 3, from: 'fraud_detector', to: 'blackboard', message: 'Turnover gap exceeds 20% threshold (RULE_TURNOVER_GAP_EXCEEDED).', type: 'flag' },
     { id: '6', wave: 4, from: 'risk_agent', to: 'policy_agent', message: 'Calculated initial DSCR: 0.90x on requested ₹75 Lakh application.', type: 'flag' },
     { id: '7', wave: 5, from: 'policy_agent', to: 'structuring_agent', message: 'Hard limit enforced: Cap ticket size at cashflow present value.', type: 'info' },
-    { id: '8', wave: 6, from: 'structuring_agent', to: 'cam_agent', message: 'Loan sized at ₹45 Lakh. Evidence ladder created unlocking ₹66 Lakh.', type: 'success' },
+    { id: '8', wave: 6, from: 'structuring_agent', to: 'cam_agent', message: 'Loan sized at ₹45 Lakh. Evidence ladder created unlocking ₹66.5 Lakh.', type: 'success' },
     { id: '9', wave: 7, from: 'cam_agent', to: 'citation_validator', message: 'CAM generated. 100% of sentences linked to fact and transaction IDs.', type: 'success' },
     { id: '10', wave: 8, from: 'ledger_agent', to: 'human_approver', message: 'Record posted with status PENDING_APPROVAL. Ready for officer review.', type: 'success' },
   ];
@@ -173,7 +173,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center space-x-1.5 px-3 py-2 bg-brand-900 hover:bg-brand-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+            className="flex items-center space-x-1.5 px-3 py-2 bg-brand-900 hover:bg-brand-800 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors cursor-pointer"
           >
             {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
             <span>{isPlaying ? 'Pause' : 'Play Flow'}</span>
@@ -182,7 +182,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
           <button
             onClick={handleStepForward}
             disabled={activeWave >= 8}
-            className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 transition-colors disabled:opacity-40"
+            className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 transition-colors disabled:opacity-40 cursor-pointer"
             title="Step Forward One Wave"
           >
             <SkipForward className="w-3.5 h-3.5" />
@@ -190,7 +190,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
 
           <button
             onClick={handleReset}
-            className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 transition-colors"
+            className="p-2 border border-slate-200 hover:bg-slate-50 rounded-lg text-slate-600 transition-colors cursor-pointer"
             title="Reset to Wave 1"
           >
             <RotateCcw className="w-3.5 h-3.5" />
@@ -201,7 +201,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
             <button
               onClick={handleSimulateEvidence}
               disabled={isSimulatingReplan}
-              className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white shadow-xs transition-all ${
+              className={`flex items-center space-x-1.5 px-3.5 py-2 rounded-lg text-xs font-semibold text-white shadow-xs transition-all cursor-pointer ${
                 hasAppliedEvidence
                   ? 'bg-emerald-700 hover:bg-emerald-800'
                   : 'bg-amber-600 hover:bg-amber-700 animate-pulse'
@@ -209,7 +209,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
             >
               <RefreshCw className={`w-3.5 h-3.5 ${isSimulatingReplan ? 'animate-spin' : ''}`} />
               <span>
-                {hasAppliedEvidence ? 'Re-Plan Active (6/9 Cached)' : '⚡ Trigger Re-Plan'}
+                {hasAppliedEvidence ? 'Re-Plan Active (4 Cached / 7 Redone)' : '⚡ Trigger Re-Plan'}
               </span>
             </button>
           )}
@@ -218,9 +218,9 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
 
       {/* Incremental Re-Plan Pulse Banner */}
       {hasAppliedEvidence && (
-        <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 flex items-center justify-between glow-amber-pulse">
+        <div className="bg-amber-50 border border-amber-300 rounded-xl p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3 glow-amber-pulse">
           <div className="flex items-center space-x-3">
-            <div className="w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold">
+            <div className="w-9 h-9 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold shrink-0">
               <Zap className="w-5 h-5" />
             </div>
             <div>
@@ -228,12 +228,12 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
                 Incremental Re-Planning in Action
               </h4>
               <p className="text-xs text-amber-900 mt-0.5">
-                {microcopy.caseMoments.evidenceAdded} Only <strong>Cash Flow</strong>, <strong>Risk</strong>, and <strong>Structuring</strong> recomputed. The other 6 stages kept their cached results.
+                {microcopy.caseMoments.evidenceAdded(7, 4)} <strong>Cash Flow, Risk, Policy, Structuring, CAM, Ledger, and Human</strong> recomputed. The 4 upstream/independent stages (Intake, Bureau, Trust Gate, Fraud) kept their cached results.
               </p>
             </div>
           </div>
-          <span className="text-xs font-mono font-bold text-amber-950 bg-amber-200 px-3 py-1 rounded-md border border-amber-400">
-            66.7% Compute Saved &bull; 0ms Cache Hits
+          <span className="text-xs font-mono font-bold text-amber-950 bg-amber-200 px-3 py-1 rounded-md border border-amber-400 shrink-0 self-start sm:self-auto">
+            36.4% Pipeline Preserved &bull; 0ms Cache Hits
           </span>
         </div>
       )}
@@ -244,7 +244,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
           <div className="flex items-center space-x-2">
             <Layers className="w-4 h-4 text-brand-400" />
             <span className="text-xs font-bold uppercase tracking-wider text-slate-300">
-              Live DAG Execution Pipeline
+              Live DAG Execution Pipeline (11 Stages)
             </span>
           </div>
           <div className="flex items-center space-x-4 text-xs font-mono">
@@ -265,8 +265,8 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
           }`}>
             <div className="flex justify-between items-center mb-3">
               <span className="text-[11px] font-bold uppercase text-brand-300 font-mono flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-                <span>Wave 1 &bull; Parallel Input Intake</span>
+                <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping" />
+                <span>Wave 0 &bull; Parallel Input Intake</span>
               </span>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
                 PARALLEL WAVE
@@ -276,20 +276,20 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-xs text-white">Document Intake Agent</span>
-                  <span className="text-[10px] font-mono text-slate-400">380ms</span>
+                  <span className="font-bold text-xs text-white">1. Document Intake Agent</span>
+                  <span className="text-[10px] font-mono text-slate-400">42ms</span>
                 </div>
-                <p className="text-[11px] text-slate-400">Parses GST GSTR-3B returns, SBI bank e-statements, and ITR files.</p>
+                <p className="text-[11px] text-slate-400">Parses GST GSTR-3B returns, SBI bank e-statements, and loan json.</p>
                 <div className="text-[10px] text-emerald-400 pt-1 font-mono">Input Hash: e4a1..90b2 [MATCHED]</div>
               </div>
 
               <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-xs text-white">Bureau & KYC Agent</span>
-                  <span className="text-[10px] font-mono text-slate-400">340ms</span>
+                  <span className="font-bold text-xs text-white">2. Bureau & KYC Agent</span>
+                  <span className="text-[10px] font-mono text-slate-400">38ms</span>
                 </div>
                 <p className="text-[11px] text-slate-400">Concurrent direct pull: CIBIL commercial score 710 and existing EMIs.</p>
-                <div className="text-[10px] text-emerald-400 pt-1 font-mono">Input Hash: c88f..11a4 [MATCHED]</div>
+                <div className="text-[10px] text-emerald-400 pt-1 font-mono">Input Hash: 7b3c..11f8 [MATCHED]</div>
               </div>
             </div>
           </div>
@@ -311,20 +311,20 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
           }`}>
             <div className="flex justify-between items-center mb-2">
               <span className="text-[11px] font-bold uppercase text-brand-300 font-mono">
-                Wave 2 &bull; Trust Gate Triangulation Engine
+                Wave 1 &bull; Trust Gate Triangulation Engine
               </span>
               <span className="text-[10px] font-mono text-brand-400">Deterministic Code</span>
             </div>
             <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
               <div className="flex justify-between items-center">
-                <span className="font-bold text-xs text-white">Trust Gate Grading Agent</span>
-                <span className="text-[10px] font-mono text-slate-400">110ms</span>
+                <span className="font-bold text-xs text-white">3. Trust Gate Grading Agent</span>
+                <span className="text-[10px] font-mono text-slate-400">12ms</span>
               </div>
               <p className="text-[11px] text-slate-400">
                 Cross-validates claimed turnover vs bank deposits. Flags 70% gap as <strong>Grade C</strong>.
               </p>
-              <div className="text-[10px] text-amber-400 pt-1 font-mono">
-                Status: {hasAppliedEvidence ? 'REUSED (Upstream Unchanged)' : 'Verified'}
+              <div className="text-[10px] text-emerald-400 pt-1 font-mono">
+                Status: {hasAppliedEvidence ? 'REUSED FROM CACHE (0ms)' : 'Verified'}
               </div>
             </div>
           </div>
@@ -346,8 +346,8 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
           }`}>
             <div className="flex justify-between items-center mb-3">
               <span className="text-[11px] font-bold uppercase text-brand-300 font-mono flex items-center space-x-2">
-                <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping"></span>
-                <span>Wave 3 &bull; Parallel Cashflow & Forensic Analysis</span>
+                <span className="w-2 h-2 rounded-full bg-brand-400 animate-ping" />
+                <span>Wave 2 &bull; Parallel Cashflow & Forensic Analysis</span>
               </span>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-800">
                 PARALLEL WAVE
@@ -362,12 +362,12 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
                   : 'bg-slate-900 border-slate-800'
               }`}>
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-xs text-white">Cash Flow Analysis Agent</span>
-                  <span className="text-[10px] font-mono text-slate-400">240ms</span>
+                  <span className="font-bold text-xs text-white">4. Cash Flow Analysis Agent</span>
+                  <span className="text-[10px] font-mono text-slate-400">14ms</span>
                 </div>
                 <p className="text-[11px] text-slate-400">
                   {hasAppliedEvidence 
-                    ? '⚡ RECOMPUTED: Verified cash upgraded from ₹1.5L to ₹2.1L/mo via utility bills.' 
+                    ? '⚡ RECOMPUTED: Verified cash upgraded from ₹1.5L to ₹2.2L/mo via utility bills.' 
                     : 'Calculates verified net monthly operating cash (₹1.5 Lakh/mo).'}
                 </p>
                 <div className="text-[10px] font-mono pt-1 text-amber-400">
@@ -378,14 +378,14 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
               {/* Fraud Node */}
               <div className="p-3.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-xs text-white">Forensic Fraud & NetworkX Agent</span>
-                  <span className="text-[10px] font-mono text-slate-400">290ms</span>
+                  <span className="font-bold text-xs text-white">5. Forensic Fraud & NetworkX Agent</span>
+                  <span className="text-[10px] font-mono text-slate-400">46ms</span>
                 </div>
                 <p className="text-[11px] text-slate-400">
                   Runs directed cycle checks, linked entity hash matching, and outside-world dissipation test.
                 </p>
-                <div className="text-[10px] font-mono pt-1 text-teal-400">
-                  REUSED (Cached Output Unchanged)
+                <div className="text-[10px] font-mono pt-1 text-emerald-400">
+                  REUSED (Cached Output Unchanged - 0ms)
                 </div>
               </div>
             </div>
@@ -398,43 +398,55 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
             </svg>
           </div>
 
-          {/* Wave 4 to 8: Sequential Sizing & Governance */}
+          {/* Waves 4 to 8: Sequential Sizing & Governance (6 Stages) */}
           <div className={`p-4 rounded-xl border transition-all ${
             activeWave >= 4
               ? 'border-brand-500 bg-brand-950/40'
               : 'border-slate-900 bg-slate-900/20 opacity-40'
           }`}>
             <span className="text-[11px] font-bold uppercase text-brand-300 font-mono block mb-3">
-              Waves 4 to 8 &bull; Risk, Policy, Sizing & Governance
+              Waves 3 to 8 &bull; Risk, Policy, Structuring, CAM, Ledger & Human Gate
             </span>
 
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-2 sm:gap-3 text-xs">
               <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-amber-500 bg-amber-950/30' : 'border-slate-800 bg-slate-900'}`}>
-                <span className="font-bold text-white block">Risk & DSCR</span>
+                <span className="font-bold text-white block">6. Risk Score</span>
                 <span className="text-[10px] text-slate-400 block mt-1">
-                  {hasAppliedEvidence ? 'DSCR upgraded: 1.25x' : 'Initial DSCR: 0.90x'}
+                  {hasAppliedEvidence ? 'DSCR: 1.25x' : 'Initial: 0.90x'}
                 </span>
-                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'STALE' : 'OK'}</span>
-              </div>
-
-              <div className="p-3 rounded-lg border border-slate-800 bg-slate-900">
-                <span className="font-bold text-white block">Policy Engine</span>
-                <span className="text-[10px] text-slate-400 block mt-1">Bank A YAML limits</span>
-                <span className="text-[9px] font-mono text-teal-400">REUSED</span>
+                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'REDONE' : 'OK'}</span>
               </div>
 
               <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-amber-500 bg-amber-950/30' : 'border-slate-800 bg-slate-900'}`}>
-                <span className="font-bold text-white block">Structuring</span>
-                <span className="text-[10px] text-emerald-400 font-bold block mt-1">
-                  {hasAppliedEvidence ? 'Sized: ₹66 Lakh' : 'Sized: ₹45 Lakh'}
-                </span>
-                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'STALE' : 'OK'}</span>
+                <span className="font-bold text-white block">7. Policy Engine</span>
+                <span className="text-[10px] text-slate-400 block mt-1">Limits check</span>
+                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'REDONE' : 'OK'}</span>
               </div>
 
-              <div className="p-3 rounded-lg border border-slate-800 bg-slate-900">
-                <span className="font-bold text-white block">Mock Ledger</span>
-                <span className="text-[10px] text-slate-400 block mt-1">PENDING_APPROVAL</span>
-                <span className="text-[9px] font-mono text-emerald-400">LOCKED</span>
+              <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-amber-500 bg-amber-950/30' : 'border-slate-800 bg-slate-900'}`}>
+                <span className="font-bold text-white block">8. Structuring</span>
+                <span className="text-[10px] text-emerald-400 font-bold block mt-1">
+                  {hasAppliedEvidence ? 'Sized: ₹66.5L' : 'Sized: ₹45.0L'}
+                </span>
+                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'REDONE' : 'OK'}</span>
+              </div>
+
+              <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-amber-500 bg-amber-950/30' : 'border-slate-800 bg-slate-900'}`}>
+                <span className="font-bold text-white block">9. CAM Memo</span>
+                <span className="text-[10px] text-slate-400 block mt-1">Citations OK</span>
+                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'REDONE' : 'OK'}</span>
+              </div>
+
+              <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-amber-500 bg-amber-950/30' : 'border-slate-800 bg-slate-900'}`}>
+                <span className="font-bold text-white block">10. Ledger</span>
+                <span className="text-[10px] text-slate-400 block mt-1">PENDING_APP</span>
+                <span className="text-[9px] font-mono text-amber-400">{hasAppliedEvidence ? 'REDONE' : 'OK'}</span>
+              </div>
+
+              <div className={`p-3 rounded-lg border ${hasAppliedEvidence ? 'border-cyan-500 bg-cyan-950/30' : 'border-slate-800 bg-slate-900'}`}>
+                <span className="font-bold text-white block">11. Human Gate</span>
+                <span className="text-[10px] text-cyan-300 block mt-1">Officer Sign-Off</span>
+                <span className="text-[9px] font-mono text-cyan-400">AWAITING</span>
               </div>
             </div>
           </div>
@@ -481,7 +493,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
         </div>
 
         {/* Feature Tab Selector */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
           {UNIQUE_FEATURES.map((feat) => {
             const Icon = feat.icon;
             const isTabActive = activeFeatureTab === feat.id;
@@ -489,7 +501,7 @@ export const WorkflowScreen: React.FC<WorkflowScreenProps> = ({
               <button
                 key={feat.id}
                 onClick={() => setActiveFeatureTab(feat.id)}
-                className={`p-3 rounded-xl border text-left transition-all ${
+                className={`p-3 rounded-xl border text-left transition-all cursor-pointer ${
                   isTabActive
                     ? 'border-brand-600 bg-brand-900 text-white shadow-sm'
                     : 'border-slate-200 bg-white text-slate-700 hover:bg-slate-50'

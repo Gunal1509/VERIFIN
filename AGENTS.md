@@ -1,11 +1,11 @@
-# AGENTS.md: MSME Underwriting Copilot
+# AGENTS.md: Verifin — An Adaptive Multi-Agent Financial Intelligence System
 
 Standing instructions for every agent working in this workspace.
 The full product spec is in `docs/SPEC.md` (the file `MSME_Underwriting_Copilot_Prototype_Prompt.md`). Read it before starting any task and follow it. If this file and the spec disagree, stop and ask.
 
 ## What we are building
 
-A prototype that helps a bank credit officer decide on an MSME loan faster and with proof. Agents read and explain, plain code calculates and enforces limits, and a human always decides. The key feature is the **adaptive parallel agent workflow with incremental re-planning**: a dependency graph per case, parallel waves, skipping unneeded stages, and recomputing only stale stages when new evidence arrives.
+**Verifin: An Adaptive Multi-Agent Financial Intelligence System** helps a bank credit officer decide on an MSME loan faster and with proof. Agents read and explain, plain code calculates and enforces limits, and a human always decides. The key feature is the **adaptive parallel agent workflow with incremental re-planning**: a dependency graph per case, parallel waves, skipping unneeded stages, and recomputing only stale stages when new evidence arrives.
 
 All data is **synthetic**. Never use or invent real customer data.
 

@@ -107,3 +107,45 @@ export interface CaseData {
     citations: string[];
   }>;
 }
+
+export interface ConnectorRegistryItem {
+  name: string;
+  endpoint: string;
+  transport: string;
+  status: 'live' | 'mock';
+  tools: string[];
+  resources: string[];
+  securityScope: string;
+  description: string;
+}
+
+export interface AgentTheatreStage {
+  id: string;
+  name: string;
+  wave: number;
+  oneSentenceJob: string;
+  inputsRead: string[];
+  inputHash: string;
+  toolsCalled: Array<{
+    name: string;
+    type: 'code' | 'model';
+    description: string;
+  }>;
+  outputSummary: string;
+  evidenceCitations: Array<{
+    doc: string;
+    page?: number;
+    txnId?: string;
+    label: string;
+  }>;
+  executionTimeMs: number;
+  tokensUsed: number;
+  isReused: boolean;
+  isStale: boolean;
+  a2aDialogue?: {
+    from: string;
+    to: string;
+    message: string;
+    type: 'handoff' | 'objection' | 'resolution';
+  };
+}

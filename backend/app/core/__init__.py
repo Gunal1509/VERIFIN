@@ -1,4 +1,4 @@
-"""Core package for MSME Underwriting Copilot."""
+"""Core package for Verifin: An Adaptive Multi-Agent Financial Intelligence System."""
 
 from backend.app.core.casefile import (
     CaseFile,

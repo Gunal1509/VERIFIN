@@ -1,4 +1,4 @@
-"""Automated HD Demo Video Generator for MSME Underwriting Copilot.
+"""Automated HD Demo Video Generator for Verifin: An Adaptive Multi-Agent Financial Intelligence System.
 
 Renders an 8-scene 1080p presentation video with synchronized voiceover narration
 based on the official 3-minute demo script from Section 14 of docs/SPEC.md.
@@ -27,11 +27,11 @@ if not os.path.exists(FONT_MAIN):
 SCENES = [
     {
         "id": "scene1_intro",
-        "title": "MSME Underwriting Copilot",
-        "subtitle": "Stopping Inflated-Turnover Fraud with Forward-Deployed AI",
+        "title": "Verifin",
+        "subtitle": "An Adaptive Multi-Agent Financial Intelligence System",
         "badge": "Virtusa Jatayu Season 6 | Team Code & Cosmos",
         "narration": (
-            "Welcome to the MSME Underwriting Copilot. "
+            "Welcome to Verifin: An Adaptive Multi-Agent Financial Intelligence System. "
             "Credit officers spend days cross-referencing bank statements, GST filings, and bureau data by hand. "
             "Fraudsters exploit this by inflating turnover through circular trading loops. "
             "Our copilot introduces an adaptive parallel agent workflow with incremental re-planning, "
@@ -172,7 +172,7 @@ SCENES = [
             "The officer can Approve, Send back with notes, or Escalate. "
             "Posting moves the loan to Sanctioned status in the ledger. "
             "Most importantly, an automated audit verifies that no disbursal endpoint exists anywhere in the codebase. "
-            "MSME Underwriting Copilot: faster approvals, forensic fraud detection, and humans always in command."
+            "Verifin: faster approvals, forensic fraud detection, and humans always in command."
         ),
         "bullets": [
             "Proof Pack: One-page printable summary with verified citations and key metrics.",
@@ -225,7 +225,7 @@ def render_slide(scene: dict, output_png: Path) -> None:
     draw.rectangle([0, 0, width, 14], fill="#3082FC")  # Brand Blue accent
 
     # Top Left Tag
-    draw.text((100, 60), "FORWARD-DEPLOYED MSME UNDERWRITING COPILOT", fill="#94A3B8", font=font_header_tag)
+    draw.text((100, 60), "VERIFIN • ADAPTIVE MULTI-AGENT FINANCIAL INTELLIGENCE", fill="#94A3B8", font=font_header_tag)
     
     # Badge Pill (Top Right)
     badge_text = scene["badge"]

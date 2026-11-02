@@ -23,9 +23,9 @@ export const OperationsScreen: React.FC<OperationsScreenProps> = ({
   const copy = microcopy.screens.operations;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
             <h2 className="text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
@@ -69,16 +69,16 @@ export const OperationsScreen: React.FC<OperationsScreenProps> = ({
       </div>
 
       {/* Live System Performance & Telemetry Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
         {/* Metric 1 */}
-        <div className="bg-white p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
+        <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-xs space-y-2">
           <div className="flex justify-between items-center text-slate-400">
             <span className="text-xs font-bold uppercase">{copy.metrics.avgLatency}</span>
             <Cpu className="w-4 h-4 text-brand-600" />
           </div>
-          <div className="text-2xl font-black text-slate-900 font-mono">1.84s</div>
+          <div className="text-2xl font-black text-slate-900 font-mono">284 ms</div>
           <span className="text-[11px] text-emerald-700 font-semibold block">
-            Parallel waves 42% faster than sequential
+            Parallel waves 17.7% faster than sequential (284ms vs 345ms)
           </span>
         </div>
 
@@ -101,10 +101,10 @@ export const OperationsScreen: React.FC<OperationsScreenProps> = ({
             <RefreshCw className="w-4 h-4 text-indigo-600" />
           </div>
           <div className="text-2xl font-black text-slate-900 font-mono">
-            {hasAppliedEvidence ? '6 / 9 Cached' : '100% Fresh'}
+            {hasAppliedEvidence ? '4 / 11 Cached' : '100% Fresh'}
           </div>
           <span className="text-[11px] text-indigo-700 font-semibold block">
-            {hasAppliedEvidence ? '66.7% compute avoided on re-plan' : 'Zero stale stages initially'}
+            {hasAppliedEvidence ? '36.4% pipeline steps preserved (4 cached / 7 redone)' : 'Zero stale stages initially'}
           </span>
         </div>
 

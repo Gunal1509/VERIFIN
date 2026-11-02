@@ -1,4 +1,4 @@
-"""Synthetic data generator package for MSME Underwriting Copilot."""
+"""Synthetic data generator package for Verifin: An Adaptive Multi-Agent Financial Intelligence System."""
 
 from backend.app.synthetic.generator import (
     generate_scenario,

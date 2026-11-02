@@ -7,12 +7,51 @@
   color-scheme: light;
 }
 
+.dark {
+  color-scheme: dark;
+}
+
+/* Smooth touch scrolling and mobile tap highlights */
+html {
+  -webkit-text-size-adjust: 100%;
+  touch-action: manipulation;
+}
+
 body {
   margin: 0;
   min-height: 100vh;
   background-color: #f8fafc;
   color: #0f172a;
   -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overflow-x: hidden;
+}
+
+/* Touch scroll smooth class */
+.touch-scroll {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+
+.dark body {
+  background-color: #0b1120;
+  color: #f8fafc;
+}
+
+/* WCAG AA Visible Focus */
+:focus-visible {
+  outline: 2px solid #026bc9;
+  outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Custom scrollbars */
@@ -90,13 +129,4 @@ body {
   background: linear-gradient(90deg, transparent, #38bdf8, transparent);
   box-shadow: 0 0 8px #38bdf8;
   animation: scan-laser 2.2s infinite ease-in-out;
-}
-
-@keyframes particle-orbit {
-  0% {
-    offset-distance: 0%;
-  }
-  100% {
-    offset-distance: 100%;
-  }
 }

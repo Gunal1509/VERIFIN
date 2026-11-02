@@ -1,19 +1,22 @@
 /**
- * Centralized humanized copy for MSME Underwriting Copilot.
+ * Centralized humanized copy for Verifin: An Adaptive Multi-Agent Financial Intelligence System.
  * Strictly adheres to AGENTS.md rule:
  * "All copy lives in frontend/src/copy/microcopy.ts, not scattered in components."
  */
 
 export const microcopy = {
   app: {
-    title: "MSME Underwriting Copilot",
-    tagline: "Forward-Deployed Credit Copilot",
+    title: "Verifin",
+    tagline: "An Adaptive Multi-Agent Financial Intelligence System",
+    description: "An Adaptive Multi-Agent Financial Intelligence System",
     officerRoleBadge: "Credit Officer Copilot",
     humanInChargeBanner: "You make the final call. The system analyzes, computes, and proposes — an authorized credit officer always decides.",
     noDisbursalNotice: "Safety Guarantee: System generates recommendations only. Automated fund disbursal is strictly impossible.",
   },
 
   navigation: {
+    landing: "Overview & Architecture",
+    agentTheatre: "Agent Theatre (Live Demo)",
     queue: "Case Queue",
     workflow: "Adaptive Workflow",
     trustGate: "Trust Gate Numbers",
@@ -24,7 +27,7 @@ export const microcopy = {
     operations: "Operations & Policies",
     demoVideo: "Pitch & Demo Video",
     animatedFraudFlow: "Animated Fraud Flow",
-    architecture: "Backend Architecture",
+    architecture: "System Architecture",
   },
 
   tooltips: {
@@ -35,17 +38,208 @@ export const microcopy = {
     gradeB: "Plausible but not confirmable from bank statements alone. Common for cash businesses; never labelled fraud.",
     gradeC: "Contradicted by another verifiable record (e.g., sales claim with no bank trace and circular loops).",
     evidenceLadder: "Ranked next steps the borrower can supply to verify unbanked sales and raise their loan amount.",
+    inputHash: "SHA-256 fingerprint of stage inputs. When inputs are identical, previous results are reused with zero compute.",
+    zeroDisbursal: "Architectural guarantee: fund movement APIs are absent. State can only be PENDING_APPROVAL.",
   },
 
   caseMoments: {
     opened: "Here is what I found. I have not made any decision, that is yours.",
     sharmaMismatch: "GST shows ₹4.0 Cr but the bank confirms ₹1.2 Cr. Let's see what explains the gap.",
     honestCashNotice: "We could not confirm all sales from the bank, but that is common for cash retail businesses. Here is how they can show the rest.",
-    evidenceAdded: "Thanks. I only need to redo 3 of 9 steps. The rest stay as they were.",
+    evidenceAdded: (recomputed: number, reused: number) => 
+      `Thanks. I only recomputed ${recomputed} of ${recomputed + reused} steps. The remaining ${reused} steps stayed untouched in cache.`,
     lowConfidence: "I am not sure about this page. Please take a quick look.",
-    injectionDetected: "One document contained an instruction aimed at me. I ignored it and noted it for your records.",
+    injectionDetected: "One document contained an instruction aimed at me. I quarantined it and noted it for your records.",
     sharmaLoanResult: "Based on confirmed cash, a safe loan is about ₹45 lakh. With the electricity bills it could be ₹66 lakh.",
     cleanCaseResult: "All documents reconcile cleanly. The financials comfortably support standard sanction terms.",
+  },
+
+  landing: {
+    hero: {
+      badge: "Virtusa Jatayu Season 6 • Forward-Deployed AI Engineering",
+      headline: "An Adaptive Multi-Agent Financial Intelligence System",
+      subheadline: "Credit underwriting for Indian MSMEs with mathematical certainty, cryptographic evidence trails, and a human officer always in command.",
+      watchProcessAction: "Watch the Process (Agent Theatre)",
+      openDemoAction: "Open Officer Cockpit",
+      waveMetricText: "11 stages dynamically grouped into parallel waves. 36.4% pipeline steps preserved on re-plan.",
+    },
+    problem: {
+      tag: "THE MSME CREDIT DILEMMA",
+      title: "The Officer's Dilemma: Speed vs. Proof",
+      description: "Indian MSMEs don't have audited balance sheets. They have GST returns, current accounts, and utility receipts. Underwriting them today means choosing between reckless auto-approval or weeks of manual reconciliation.",
+      caseHeadline: "The Sharma Traders Dilemma",
+      gstReported: "₹4.00 Crore",
+      gstLabel: "Reported GSTR-3B Sales",
+      bankVerified: "₹1.20 Crore",
+      bankLabel: "Verified Bank Inward Credits",
+      gapDescription: "₹2.80 Crore Turnover Gap (70% mismatch). Is it phantom revenue, cash retail, or circular trade? Traditional systems either reject Sharma or blindly approve.",
+      solutionStatement: "Verifin triangulates across documents, isolates genuine circular flow from honest cash, and provides an actionable evidence ladder.",
+    },
+    gaps: {
+      tag: "WHY TODAY'S TOOLS FALL SHORT",
+      title: "Four Critical Gaps in MSME Underwriting",
+      cards: [
+        {
+          num: "01",
+          title: "No Trusted Number",
+          problem: "Turnover numbers conflict across GST, income tax, and bank statements. LLMs hallucinate calculations when asked to reconcile them.",
+          verifinApproach: "Deterministic Trust Gate assigns Grade A/B/C using exact code triangulation. Zero model arithmetic.",
+        },
+        {
+          num: "02",
+          title: "No Memory Across Files",
+          problem: "Documents are processed in isolated silos. Counterparty overlaps and circular invoice rotations slip past unnoticed.",
+          verifinApproach: "NetworkX graph algorithms isolate directed circular loops with transaction IDs and premise matching.",
+        },
+        {
+          num: "03",
+          title: "No Path for Honest Borrowers",
+          problem: "Cash-heavy small businesses (kiranas, contractors) lack digital audit trails and get blanket-rejected as fraud.",
+          verifinApproach: "Grade B designation protects plausible cash sales. Evidence ladder shows the exact bills needed to unlock capital.",
+        },
+        {
+          num: "04",
+          title: "No Proof Trail",
+          problem: "AI tools generate generic loan memos with unverified claims, creating massive regulatory and credit risk.",
+          verifinApproach: "Every single claim carries page numbers, transaction IDs, and an automated citation validator that fails on missing proof.",
+        },
+      ],
+    },
+    howItWorks: {
+      tag: "ARCHITECTURE & PROCESS",
+      title: "Nine Deterministic Milestones in Plain English",
+      subtitle: "Each stage has a single responsibility. Code computes and models explain.",
+      stages: [
+        { step: "01", name: "Multi-Format Intake", desc: "Extracts structured tables from PDFs, tax filings, and bank e-statements with injection quarantine." },
+        { step: "02", name: "Bureau & KYC Check", desc: "Queries commercial CIBIL, MCA director registries, and Udyam identity databases." },
+        { step: "03", name: "Trust Gate Grading", desc: "Cross-checks reported sales against bank credits. Triangulates Grade A (verified), B (honest cash), and C (contradicted)." },
+        { step: "04", name: "Forensic Loop Detection", desc: "NetworkX directed graph traverses counterparty payments to flag circular cycles with exact transaction IDs." },
+        { step: "05", name: "Cashflow & DSCR Analysis", desc: "Calculates net operating cash and debt service coverage ratio strictly via pure Python functions." },
+        { step: "06", name: "Policy Engine Verification", desc: "Validates bank credit policy limits (DSCR floor, maximum exposure, sector caps) in code." },
+        { step: "07", name: "Loan Sizing & Structuring", desc: "Computes maximum supportable loan amount using Present Value annuity formula under policy constraints." },
+        { step: "08", name: "CAM & Citation Validation", desc: "Generates Credit Assessment Memo with strict sentence-level citation enforcement." },
+        { step: "09", name: "Human Officer Sign-Off", desc: "Writes to double-entry ledger strictly as PENDING_APPROVAL. Disbursal physically locked." },
+      ],
+    },
+    adaptiveDag: {
+      tag: "THE HEADLINE INNOVATION",
+      title: "Adaptive Dependency Graph with Incremental Re-Planning",
+      subtitle: "When new evidence arrives, we do not rerun from scratch. We only redo stale downstream stages.",
+      replanSharmaTitle: "Sharma Traders: Adding Electricity Bills",
+      recomputedCount: 7,
+      reusedCount: 4,
+      totalCount: 11,
+      savingsPct: "36.4%",
+      recomputedLabel: "Stages Redone (Stale)",
+      reusedLabel: "Stages Reused from Cache (0ms)",
+      explanation: "Utility bills only alter verified cashflow. Upstream Intake, Bureau, Trust Gate, and Fraud detection stay identical in cache.",
+    },
+    controlsTrust: {
+      tag: "SAFETY & GOVERNANCE",
+      title: "Built for Institutional Risk & Credit Committees",
+      cards: [
+        {
+          title: "Code Computes, Models Explain",
+          desc: "DSCR, turnover gap, loan sizing, and policy checks are 100% deterministic Python. Language models never do arithmetic.",
+        },
+        {
+          title: "Cryptographic Input Hashing",
+          desc: "Every stage computes an SHA-256 hash of its inputs. If the hash matches, the cached result is used instantly with zero token cost.",
+        },
+        {
+          title: "Zero-Disbursal Guarantee",
+          desc: "Fund release APIs are absent by design. An automated safety test scans every FastAPI route and ledger state on every build.",
+        },
+        {
+          title: "Prompt Injection Quarantine",
+          desc: "Document text is strictly treated as untrusted data. Multi-layered regex and schema validation quarantine hidden prompt overrides.",
+        },
+        {
+          title: "Strict YAML Policy Packs",
+          desc: "Credit policies are defined in clean YAML and executed in code. Switch between Bank A and Bank B without touching backend logic.",
+        },
+        {
+          title: "Mandatory Human in Charge",
+          desc: "The system never issues automated rejections or approvals. The credit officer makes the final call with a full proof pack.",
+        },
+      ],
+    },
+    mcpConnectors: {
+      tag: "FORWARD-DEPLOYED INTEGRATION",
+      title: "Model Context Protocol (MCP) Connector Registry",
+      subtitle: "Our engine and bank connectors implement the official MCP standard. Swap mocks for production core banking with zero code changes.",
+      tableHeaders: {
+        name: "Connector Service",
+        protocol: "Protocol / Transport",
+        tools: "Tools & Resources Offered",
+        security: "Security & Permitted Scope",
+        status: "Deployment Status",
+      },
+    },
+    rollout: {
+      tag: "ENTERPRISE ADOPTION",
+      title: "Forward-Deployed Rollout Methodology",
+      phases: [
+        {
+          phase: "Phase 1: Shadow Mode (Month 1-2)",
+          desc: "Runs invisibly in parallel with existing credit officers on historical files. Zero operational friction; measures concordance and catches blindspots.",
+        },
+        {
+          phase: "Phase 2: Assist Mode (Month 3-4)",
+          desc: "Officers use Verifin to auto-extract documents, run circular flow checks, and draft CAM memos. Officer reviews every finding.",
+        },
+        {
+          phase: "Phase 3: Decision Support (Month 5+)",
+          desc: "Full evidence ladder and auto-sizing deployed. Officer reviews the complete proof pack and authorizes the ledger sanction.",
+        },
+      ],
+    },
+    honestLimits: {
+      tag: "TRANSPARENCY",
+      title: "Honest Limitations of the System",
+      description: "We are clear about what AI can and cannot do in financial services:",
+      items: [
+        "Cannot conduct physical on-site inspections of factories, godowns, or collateral premises.",
+        "Cannot adjudicate contested legal titles, court litigation, or encumbrance certificates.",
+        "Cannot definitively divine borrower subjective moral character or future intent.",
+        "Requires authenticated human credit officer sign-off for any legal binding commitment.",
+      ],
+    },
+    footer: {
+      syntheticNotice: "Synthetic Data Notice: All borrower names, PANs, GSTINs, bank transactions, and amounts are 100% synthetic fixtures for demonstration purposes. No real customer data is ever ingested or stored.",
+      copyright: "Verifin • Virtusa Jatayu Season 6 Engineering Prototype.",
+    },
+  },
+
+  agentTheatre: {
+    title: "Agent Theatre: Interactive Workflow Demonstration",
+    subtitle: "Observe our multi-agent system orchestrate, calculate, and debate in real-time or through replay.",
+    benchmarkHeader: "Concurrency Benchmark (Sharma Traders Run)",
+    parallelLabel: "Wave Concurrency (Real Orchestrator)",
+    sequentialLabel: "Sequential Execution (Baseline)",
+    parallelTime: "284 ms",
+    sequentialTime: "345 ms",
+    speedup: "17.7% faster turnaround",
+    controls: {
+      caseSelect: "Select MSME Case:",
+      play: "Play Run",
+      pause: "Pause",
+      step: "Step Forward",
+      replay: "Replay",
+      speed: "Speed:",
+      whatChanged: "What Changed? (Simulate Electricity Bills)",
+    },
+    agentStatus: {
+      ran: "Executed in Wave",
+      reused: "Reused from Cache (0ms)",
+      stale: "Redone due to Hash Change",
+      skipped: "Skipped (Not Needed)",
+    },
+    badges: {
+      pureCode: "Deterministic Code",
+      modelCall: "Model Narrative",
+      cached: "SHA-256 Match",
+    },
   },
 
   screens: {
@@ -72,7 +266,7 @@ export const microcopy = {
       legendStale: "Stale (Rerunning)",
       timelineHeading: "Workflow Narration",
       replanButton: "Simulate New Evidence (Electricity Bills)",
-      replanNotice: "Incremental re-plan active: 3 stages rerunning, 6 stages reused.",
+      replanNotice: "Incremental re-plan active: 7 stages recomputed, 4 stages reused from cache.",
     },
 
     trustGate: {
@@ -149,17 +343,115 @@ export const microcopy = {
       title: "System Operations & Policy Engine",
       subtitle: "Live system telemetry, token usage, re-plan performance, and one-click policy pack switcher.",
       activePolicyLabel: "Active Policy Pack",
-      policyDescriptionA: "Bank A Policy: Moderate risk appetite. Minimum DSCR 1.25, max turnover gap 20%, maximum exposure ₹1.0 Cr.",
-      policyDescriptionB: "Bank B Policy: Conservative risk appetite. Minimum DSCR 1.40, max turnover gap 10%, maximum exposure ₹50 Lakh.",
+      policyDescriptionA: "Bank A Policy: Moderate risk appetite. Minimum DSCR 1.25, max turnover gap 20%, maximum exposure ₹1.0 Cr, Base Rate 12.0%.",
+      policyDescriptionB: "Bank B Policy: Conservative risk appetite. Minimum DSCR 1.35, max turnover gap 10%, maximum exposure ₹80 Lakh, Base Rate 12.5%.",
       switchAction: "Switch to Bank B Policy",
       switchActionBack: "Switch to Bank A Policy",
-      switchSuccess: (pack: string) => `Switched to ${pack} policy pack without changing code. Sizing recomputed live.`,
+      switchSuccess: (pack: string) => `Switched to ${pack} policy pack without changing code. Sizing and limits recomputed live.`,
       metrics: {
         avgLatency: "Workflow Run Time",
         tokenCost: "Total Token Consumption",
         replanRate: "Incremental Re-plan Efficiency",
         safeDisbursalCheck: "Zero Disbursal Route Check",
       },
+    },
+  },
+
+  entryScene: {
+    syntheticTag: "Synthetic data • Illustrative prototype for hackathon demonstration",
+    acts: {
+      act1Tab: "Act I: Paper Dilemma",
+      act2Tab: "Act II: Vector Intelligence",
+      act3Tab: "Act III: Verifin Revealed",
+    },
+    controls: {
+      skip: "Skip Intro",
+      replay: "Replay Intro",
+      enterPlatform: "Enter Verifin Platform",
+      exploreSharma: "Explore Sharma Traders Case",
+      watchTheatre: "Watch Live Agent Waves",
+      soundOn: "Sound On",
+      soundOff: "Mute",
+      pause: "Pause",
+      play: "Play",
+    },
+    phase1: {
+      actBadge: "ACT I • THE MANUAL MSME DILEMMA",
+      headline: "Every day, small businesses ask banks for a loan.",
+      subtitle: "Before saying yes, an officer must decide one thing: will they repay, and are the numbers honest?",
+      narration: "That means reading bank statements, GST filings, tax returns and bureau reports — entirely by hand.",
+      metricTag: "14-DAY MANUAL BOTTLENECK • RECKLESS APPROVAL OR BLANKET REJECTION",
+      cards: [
+        {
+          title: "GSTR-3B Tax Filing",
+          subtitle: "Self-Reported Tax Sales",
+          value: "₹4.00 Crore",
+          status: "Unverified Claim",
+          note: "Reported outward supplies with no banking cross-reference",
+        },
+        {
+          title: "SBI Current Account",
+          subtitle: "Verified Bank Inflows",
+          value: "₹1.20 Crore",
+          status: "70% Turnover Gap",
+          note: "₹2.80 Cr missing or unbanked cash transactions",
+        },
+        {
+          title: "Audited ITR-V",
+          subtitle: "Income Tax Statement",
+          value: "8.4% Margin",
+          status: "Plausible Retail Margin",
+          note: "Depreciation, interest expenses and owner drawings",
+        },
+        {
+          title: "Commercial CIBIL",
+          subtitle: "Bureau Credit Track",
+          value: "680 Score",
+          status: "3 Active Tradelines",
+          note: "1 minor 30-day DPD flag 9 months ago",
+        },
+      ],
+    },
+    phase2: {
+      actBadge: "ACT II • VECTOR INTELLIGENCE & AGENT WAVES",
+      headline: "Paper dissolves into verified digital proof.",
+      subtitle: "Instead of unverified claims, documents transform into cryptographic vectors and parallel agent waves.",
+      narration: "Deterministic Python verifies cashflow while specialized agents explain findings. Zero LLM arithmetic.",
+      benchmarkTag: "PARALLEL WAVE EXECUTION: 284ms • SHA-256 INPUT CACHE MERGING",
+      nodes: [
+        { wave: "Wave 0", name: "Intake Agent", tag: "OCR & QUARANTINE", desc: "Extracts structured tables; strips untrusted prompt injections." },
+        { wave: "Wave 0", name: "Bureau & KYC", tag: "IDENTITY MCP", desc: "Connects to CIBIL & MCA registries concurrently with intake." },
+        { wave: "Wave 1", name: "Trust Gate", tag: "TRIANGULATION", desc: "Assigns Grade A (verified), Grade B (cash), or Grade C (contradicted)." },
+        { wave: "Wave 2", name: "Forensic Graph", tag: "NETWORKX CYCLES", desc: "Isolates circular transactions between Sharma, Verma & Gupta." },
+        { wave: "Wave 2", name: "Cashflow & DSCR", tag: "PURE PYTHON MATH", desc: "Calculates 0.91 DSCR on confirmed cashflow. No model math." },
+        { wave: "Wave 3", name: "Policy Engine", tag: "ZERO DISBURSAL", desc: "Enforces 1.25 DSCR minimum. Proposes ₹45L loan (safe floor)." },
+      ],
+    },
+    phase3: {
+      actBadge: "ACT III • THE ARCHITECTURE REVEALED",
+      brandTitle: "Verifin",
+      tagline: "Underwriting, with proof.",
+      subheadline: "An Adaptive Multi-Agent Financial Intelligence System",
+      description: "Empowering credit officers to underwrite MSME loans with mathematical certainty, instant evidence ladders, and zero automated fund disbursal.",
+      pillars: [
+        {
+          title: "Code Computes, Models Explain",
+          desc: "DSCR, turnover gap, loan sizing, and policy limits are 100% deterministic Python.",
+        },
+        {
+          title: "Adaptive Wave Re-Planning",
+          desc: "Executes in parallel waves (284ms). Recomputes only stale stages when new evidence arrives.",
+        },
+        {
+          title: "Trust Gate & Evidence Ladder",
+          desc: "Protects honest cash (Grade B). Turns gaps into ranked evidence next steps instead of rejection.",
+        },
+        {
+          title: "Zero Disbursal & Human In Charge",
+          desc: "Fund release APIs are absent by design. The human credit officer always makes the final call.",
+        },
+      ],
+      sharmaSummary: "Sharma Traders Demo: Safe initial offer ₹45 Lakh (DSCR 0.91). With verified electricity bills: ₹66.5 Lakh (DSCR 1.28).",
     },
   },
 } as const;

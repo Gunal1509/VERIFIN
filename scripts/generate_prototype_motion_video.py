@@ -1,4 +1,4 @@
-"""Real-Time Animated Prototype Motion Video Generator for MSME Underwriting Copilot.
+"""Real-Time Animated Prototype Motion Video Generator for Verifin: An Adaptive Multi-Agent Financial Intelligence System.
 
 Renders 30 FPS high-frame-rate animated scenes showing:
 1. Physical document files streaming across the screen into the Intake Agent with laser scanlines.

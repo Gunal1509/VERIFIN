@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
+import { EntryScene } from './components/EntryScene';
+import { LandingScreen } from './screens/LandingScreen';
+import { AgentTheatreScreen } from './screens/AgentTheatreScreen';
 import { CaseQueueScreen } from './screens/CaseQueueScreen';
 import { WorkflowScreen } from './screens/WorkflowScreen';
 import { TrustGateScreen } from './screens/TrustGateScreen';
@@ -14,10 +17,17 @@ import { ArchitectureScreen } from './screens/ArchitectureScreen';
 import { mockCases } from './data/mockCases';
 
 export const App: React.FC = () => {
-  const [activeScreen, setActiveScreen] = useState<string>('queue');
+  const [activeScreen, setActiveScreen] = useState<string>('landing');
   const [selectedCaseId, setSelectedCaseId] = useState<string>('case_sharma_traders');
   const [activePolicyPack, setActivePolicyPack] = useState<string>('bank_a');
   const [hasAppliedSharmaEvidence, setHasAppliedSharmaEvidence] = useState<boolean>(false);
+  const [showEntryScene, setShowEntryScene] = useState<boolean>(() => {
+    try {
+      return !sessionStorage.getItem('verifin_intro_seen');
+    } catch {
+      return true;
+    }
+  });
 
   const selectedCase = mockCases.find((c) => c.id === selectedCaseId) || mockCases[0];
 
@@ -34,8 +44,27 @@ export const App: React.FC = () => {
     setActivePolicyPack((prev) => (prev === 'bank_a' ? 'bank_b' : 'bank_a'));
   };
 
+  const handleCloseEntryScene = () => {
+    setShowEntryScene(false);
+    try {
+      sessionStorage.setItem('verifin_intro_seen', 'true');
+    } catch {
+      // ignore
+    }
+  };
+
   return (
     <div className="min-h-screen bg-slate-50 flex flex-col font-sans">
+      <EntryScene
+        isOpen={showEntryScene}
+        onClose={handleCloseEntryScene}
+        onExploreCase={(caseId) => handleSelectCase(caseId, 'decision')}
+        onOpenAgentTheatre={() => {
+          handleCloseEntryScene();
+          setActiveScreen('agentTheatre');
+        }}
+      />
+
       <Navbar
         activeScreen={activeScreen}
         setActiveScreen={setActiveScreen}
@@ -43,9 +72,28 @@ export const App: React.FC = () => {
         selectedCaseId={selectedCaseId}
         setSelectedCaseId={setSelectedCaseId}
         activePolicyPack={activePolicyPack}
+        onTogglePolicyPack={handleTogglePolicyPack}
+        onOpenEntryScene={() => setShowEntryScene(true)}
       />
 
-      <main className="flex-1 pb-12">
+      <main className="flex-1">
+        {activeScreen === 'landing' && (
+          <LandingScreen
+            onOpenCockpit={() => setActiveScreen('queue')}
+            onOpenAgentTheatre={() => setActiveScreen('agentTheatre')}
+            onOpenEntryScene={() => setShowEntryScene(true)}
+          />
+        )}
+
+        {activeScreen === 'agentTheatre' && (
+          <AgentTheatreScreen
+            cases={mockCases}
+            selectedCaseId={selectedCaseId}
+            onSelectCase={setSelectedCaseId}
+            onOpenCockpit={() => setActiveScreen('decision')}
+          />
+        )}
+
         {activeScreen === 'queue' && (
           <CaseQueueScreen cases={mockCases} onSelectCase={handleSelectCase} />
         )}

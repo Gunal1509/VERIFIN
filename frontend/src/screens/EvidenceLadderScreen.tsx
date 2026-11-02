@@ -49,29 +49,29 @@ export const EvidenceLadderScreen: React.FC<EvidenceLadderScreenProps> = ({
     }
   };
 
-  const currentSafeLoan = hasAppliedEvidence ? 6_600_000 : currentCase.decision.loanAmountInr;
-  const potentialMaxLoan = currentCase.id === 'case_sharma_traders' ? 6_600_000 : 7_500_000;
+  const currentSafeLoan = hasAppliedEvidence ? 6_650_000 : currentCase.decision.loanAmountInr;
+  const potentialMaxLoan = currentCase.id === 'case_sharma_traders' ? 6_650_000 : currentCase.requestedAmountInr;
 
   return (
-    <div className="max-w-7xl mx-auto p-6 space-y-6">
+    <div className="max-w-7xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Header */}
-      <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white p-4 sm:p-6 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center space-x-2">
-            <h2 className="text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
+            <h2 className="text-lg sm:text-xl font-bold text-slate-900 tracking-tight">{copy.title}</h2>
             <span className="bg-brand-100 text-brand-900 text-xs px-2.5 py-0.5 rounded-full font-semibold">
               Gaps Become Next Steps
             </span>
           </div>
-          <p className="text-sm text-slate-500 mt-1">{copy.subtitle}</p>
+          <p className="text-xs sm:text-sm text-slate-500 mt-1">{copy.subtitle}</p>
         </div>
-        <div className="text-xs text-slate-500 max-w-sm bg-slate-50 p-3 rounded-lg border border-slate-200">
+        <div className="text-xs text-slate-500 max-w-sm bg-slate-50 p-2.5 sm:p-3 rounded-lg border border-slate-200">
           "We never reject when a mismatch occurs. We show the borrower a prioritized roadmap of what evidence will unlock the credit they need."
         </div>
       </div>
 
       {/* Sizing Progression Bar */}
-      <div className="bg-gradient-to-r from-brand-950 to-brand-800 text-white p-6 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-center gap-6">
+      <div className="bg-gradient-to-r from-brand-950 to-brand-800 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-center gap-4 sm:gap-6">
         <div className="space-y-1">
           <span className="text-xs text-brand-300 font-semibold uppercase tracking-wider">
             {copy.currentLoanLabel} (Confirmed Cash)
@@ -94,7 +94,7 @@ export const EvidenceLadderScreen: React.FC<EvidenceLadderScreenProps> = ({
           <div className="text-center p-3 bg-white/10 rounded-xl backdrop-blur-sm border border-white/10">
             <span className="text-brand-200 block text-[11px]">Capital Unlocked</span>
             <span className="text-lg font-bold text-amber-300">
-              {hasAppliedEvidence ? '+₹21.0 Lakh' : '+₹0.0 Lakh'}
+              {hasAppliedEvidence ? '+₹21.5 Lakh' : '+₹0.0 Lakh'}
             </span>
           </div>
         </div>

@@ -24,16 +24,30 @@ export const DecisionScreen: React.FC<DecisionScreenProps> = ({
 
   const copy = microcopy.screens.decision;
 
-  const currentLoan = hasAppliedEvidence ? 6_600_000 : currentCase.decision.loanAmountInr;
+  const currentLoan = hasAppliedEvidence ? 6_650_000 : currentCase.decision.loanAmountInr;
 
-  const handleAction = (actionName: string) => {
+  const handleAction = async (actionName: string) => {
     setSubmittedAction(actionName);
+    const actionEnum = actionName.includes('Approve') ? 'SANCTIONED' : actionName.includes('Send Back') ? 'SENT_BACK' : 'ESCALATED';
+    try {
+      await fetch(`http://localhost:8000/api/cases/${currentCase.id}/decision`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          action: actionEnum,
+          notes: officerNotes || `Decision recorded by credit officer for ${currentCase.name}.`,
+          officer_id: 'CREDIT_OFFICER_001',
+        }),
+      });
+    } catch {
+      // offline graceful fallback
+    }
   };
 
   return (
-    <div className="max-w-4xl mx-auto p-6 space-y-6">
+    <div className="max-w-4xl mx-auto p-3 sm:p-6 space-y-4 sm:space-y-6">
       {/* Human In Charge Reminder Banner */}
-      <div className="bg-brand-950 text-white p-6 rounded-2xl shadow-sm space-y-3 border border-brand-800">
+      <div className="bg-brand-950 text-white p-4 sm:p-6 rounded-xl sm:rounded-2xl shadow-sm space-y-3 border border-brand-800">
         <div className="flex items-center space-x-3">
           <div className="w-9 h-9 rounded-full bg-brand-800 flex items-center justify-center">
             <UserCheck className="w-5 h-5 text-emerald-400" />

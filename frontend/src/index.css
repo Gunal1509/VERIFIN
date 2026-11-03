@@ -130,3 +130,34 @@ body {
   box-shadow: 0 0 8px #38bdf8;
   animation: scan-laser 2.2s infinite ease-in-out;
 }
+
+/* Print Styles for Institutional CAM Pack */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #0f172a !important;
+    padding: 0 !important;
+  }
+
+  nav,
+  header,
+  footer,
+  aside,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  .print\:block {
+    display: block !important;
+  }
+
+  .print-page-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  @page {
+    margin: 1.2cm;
+    size: A4 portrait;
+  }
+}

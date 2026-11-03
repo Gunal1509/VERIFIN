@@ -456,6 +456,118 @@ export const microcopy = {
     },
   },
 
+  judgeTour: {
+    pillLabel: "⚡ 60-Second Judge Tour",
+    modalTitle: "Judge Fast-Track: Critical Moments",
+    doneLabel: "Explore the Platform",
+    steps: [
+      {
+        icon: "📊",
+        title: "The 70% Turnover Gap",
+        body: "Sharma Traders reports ₹4.0 Cr in GST sales, but SBI bank statements confirm only ₹1.2 Cr of actual inflows. Traditional underwriting either blindly approves or rejects. Verifin isolates why.",
+        metricLabel: "Confirmed Gap",
+        metricValue: "₹2.8 Cr unverified (70%)",
+      },
+      {
+        icon: "🔍",
+        title: "Forensic Loop Isolated",
+        body: "NetworkX graph analysis finds a Sharma → Verma → Gupta → Sharma directed cycle. Money rotates in a closed loop within 7 days, artificially inflating invoice volume. Exact transaction IDs cited.",
+        metricLabel: "Circular Flow Detected",
+        metricValue: "3-entity loop • ₹38L inflated",
+      },
+      {
+        icon: "🪜",
+        title: "Evidence Ladder Triggered",
+        body: "Rather than rejecting Sharma, Verifin generates a ranked evidence roadmap. Uploading 12 months of BSES electricity bills unlocks an additional ₹21.5L in verified credit capacity.",
+        metricLabel: "Capital Unlocked by Evidence",
+        metricValue: "₹45L → ₹66.5L (DSCR 1.28x)",
+      },
+      {
+        icon: "🔒",
+        title: "Zero-Disbursal Human Sign-Off",
+        body: "The system writes a PENDING_APPROVAL entry to the double-entry ledger. No fund release API exists. An authorized credit officer must manually approve. The system proposes — the human decides.",
+        metricLabel: "Ledger State",
+        metricValue: "PENDING_APPROVAL (Disbursal: LOCKED)",
+      },
+    ],
+  },
+
+  benchmarkMatrix: {
+    tag: "COMPETITIVE DIFFERENTIATION",
+    title: "Verifin vs. Generic AI Copilots",
+    subtitle: "Why banks cannot deploy general-purpose LLM wrappers for regulated credit decisions.",
+    rows: [
+      {
+        category: "Arithmetic Safety",
+        llm: "Hallucinates DSCR calculations and loan sizing figures",
+        verifin: "100% deterministic Python. DSCR and sizing never touch a model",
+        llmPass: false,
+      },
+      {
+        category: "Graph Fraud Detection",
+        llm: "Cannot traverse multi-hop transaction graphs or detect circular flows",
+        verifin: "NetworkX DAG isolates Sharma→Verma→Gupta loops with exact TX IDs",
+        llmPass: false,
+      },
+      {
+        category: "Honest Cash Retail Protection",
+        llm: "Blanket-rejects unbanked cash sales as suspicious with no recourse",
+        verifin: "Grade B designation protects plausible cash. Evidence ladder shows exact next steps",
+        llmPass: false,
+      },
+      {
+        category: "Fund Safety Guarantee",
+        llm: "No architectural constraint on automated fund release",
+        verifin: "Disbursal APIs are physically absent. Automated safety test on every build",
+        llmPass: false,
+      },
+      {
+        category: "Cryptographic Audit Trail",
+        llm: "Generic memos with unverified claims and no citation provenance",
+        verifin: "Every CAM sentence carries page numbers, TX IDs, and SHA-256 fingerprint",
+        llmPass: false,
+      },
+    ],
+  },
+
+  indicNotice: {
+    tag: "BORROWER COMMUNICATION",
+    title: "Draft Evidence Request Notice",
+    subtitle: "Auto-generated from case data. Ready to send via WhatsApp or SMS.",
+    tabEnglish: "English",
+    tabHindi: "हिंदी",
+    copyLabel: "Copy to Clipboard",
+    copiedLabel: "Copied!",
+    syntheticNote: "All borrower names and amounts below are synthetic demo data.",
+    english: (name: string, bankName: string, confirmedLoan: number, potentialExtra: number, doc: string) =>
+      `Namaste ${name}ji,\n\nThis is ${bankName}. Based on your verified bank inflows, we have proposed a loan of ₹${confirmedLoan} Lakh.\n\nTo unlock an additional ₹${potentialExtra} Lakh, please share: ${doc} (last 12 months).\n\nNo action means no change to your current offer. Verifin — Zero automated decisions.`,
+    hindi: (name: string, bankName: string, confirmedLoan: number, potentialExtra: number, doc: string) =>
+      `नमस्ते ${name}जी,\n\nयह ${bankName} की ओर से संदेश है। आपके पुष्टीकृत बैंक इनफ्लो के आधार पर ₹${confirmedLoan} लाख का ऋण प्रस्तावित किया गया है।\n\n₹${potentialExtra} लाख की अतिरिक्त सीमा प्राप्त करने के लिए कृपया ${doc} (पिछले 12 महीनों के) साझा करें।\n\nकोई कार्रवाई न करने पर आपका वर्तमान प्रस्ताव यथावत रहेगा। Verifin — कोई स्वचालित निर्णय नहीं।`,
+  },
+
+  borrowerSim: {
+    label: "Borrower's Phone (Synthetic Demo)",
+    contactName: "SBI MSME Credit",
+    contactSubtitle: "Official bank channel • Verifin powered",
+    bankMessage: "Namaste Sharma Tradersji 🙏\n\nSBI has reviewed your GSTR-3B filings. We have a preliminary offer of ₹45 Lakh based on confirmed bank inflows.",
+    bankMessageTime: "2:14 PM",
+    bankMessage2: "To unlock ₹66.5 Lakh, please share your BSES electricity bills for the last 12 months. Tap below to upload 👇",
+    bankMessage2Time: "2:14 PM",
+    borrowerReply: "Ok, uploading now",
+    uploadCta: "Tap to Upload Bill",
+    uploadSubtext: "BSES_ElectricityBill_12mo.pdf",
+    fileName: "BSES_ElectricityBill_12mo.pdf",
+    uploadingLabel: "Uploading... (Synthetic)",
+    uploadedLabel: "Sent • SHA-256 fingerprinted",
+    processingMsg: "Verifying document integrity & re-computing loan plan...",
+    doneTitle: "Evidence Accepted",
+    doneMessage: "Your electricity bills have been verified ✓\n\nUpdated offer: ₹66.5 Lakh at 11.5% p.a.\n\nA credit officer will review and contact you within 48 hours.",
+    doneTime: "2:17 PM",
+    inputPlaceholder: "Type a message",
+    disclaimer: "Synthetic demo data. No real borrower data is used.",
+    backendTriggerNote: "Re-plan triggered: 7 stages recomputed, 4 reused from cache",
+  },
+
   integrationPortal: {
     tag: "MODEL CONTEXT PROTOCOL (MCP) ONBOARDING",
     title: "Partner & Institution Integration Gateway",

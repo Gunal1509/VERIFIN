@@ -83,6 +83,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
   const [evidenceToggled, setEvidenceToggled] = useState<boolean>(false);
   const [connectors, setConnectors] = useState<ConnectorRegistryItem[]>(FALLBACK_CONNECTORS);
   const copy = microcopy.landing;
+  const benchmarkCopy = microcopy.benchmarkMatrix;
 
   useEffect(() => {
     fetch('http://localhost:8000/api/connectors')
@@ -673,6 +674,74 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
                         {t}
                       </span>
                     ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 6.5 BENCHMARK MATRIX — Verifin vs Generic AI */}
+      <section className="py-12 sm:py-16 lg:py-20 bg-white border-b border-slate-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div className="max-w-3xl space-y-2 sm:space-y-3">
+            <span className="text-xs font-mono font-bold uppercase tracking-wider text-rose-600 bg-rose-50 px-2.5 py-1 rounded">
+              {benchmarkCopy.tag}
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-slate-900">{benchmarkCopy.title}</h2>
+            <p className="text-sm text-slate-600">{benchmarkCopy.subtitle}</p>
+          </div>
+
+          {/* Desktop Table */}
+          <div className="hidden md:block overflow-hidden rounded-2xl border border-slate-200 shadow-sm">
+            <table className="w-full text-xs">
+              <thead>
+                <tr className="bg-slate-50 border-b border-slate-200">
+                  <th className="px-5 py-3.5 text-left font-bold text-slate-600 w-1/4">Capability</th>
+                  <th className="px-5 py-3.5 text-left font-bold text-rose-600 w-[37.5%]">
+                    ✗ Generic AI Copilot / LLM Wrapper
+                  </th>
+                  <th className="px-5 py-3.5 text-left font-bold text-emerald-700 w-[37.5%]">
+                    ✓ Verifin
+                  </th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-slate-100 bg-white">
+                {benchmarkCopy.rows.map((row, i) => (
+                  <tr key={i} className="hover:bg-slate-50/60 transition-colors">
+                    <td className="px-5 py-4 font-semibold text-slate-800">{row.category}</td>
+                    <td className="px-5 py-4">
+                      <div className="flex items-start space-x-2">
+                        <span className="text-rose-500 font-bold mt-0.5 shrink-0">✗</span>
+                        <span className="text-slate-600 leading-relaxed">{row.llm}</span>
+                      </div>
+                    </td>
+                    <td className="px-5 py-4">
+                      <div className="flex items-start space-x-2">
+                        <span className="text-emerald-600 font-bold mt-0.5 shrink-0">✓</span>
+                        <span className="text-slate-700 font-medium leading-relaxed">{row.verifin}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Card View */}
+          <div className="block md:hidden space-y-4">
+            {benchmarkCopy.rows.map((row, i) => (
+              <div key={i} className="bg-white rounded-xl border border-slate-200 p-4 space-y-3 shadow-xs">
+                <h3 className="text-sm font-bold text-slate-900">{row.category}</h3>
+                <div className="space-y-2 text-xs">
+                  <div className="flex items-start space-x-2 bg-rose-50 rounded-lg p-2.5 border border-rose-100">
+                    <span className="text-rose-500 font-bold shrink-0">✗</span>
+                    <span className="text-slate-600">{row.llm}</span>
+                  </div>
+                  <div className="flex items-start space-x-2 bg-emerald-50 rounded-lg p-2.5 border border-emerald-100">
+                    <span className="text-emerald-600 font-bold shrink-0">✓</span>
+                    <span className="text-slate-700 font-medium">{row.verifin}</span>
                   </div>
                 </div>
               </div>

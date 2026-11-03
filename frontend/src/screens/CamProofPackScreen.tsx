@@ -4,7 +4,10 @@ import {
   CheckCircle2, 
   TrendingUp, 
   Percent, 
-  Banknote 
+  Banknote,
+  ShieldCheck,
+  Lock,
+  Fingerprint
 } from 'lucide-react';
 import { microcopy } from '../copy/microcopy';
 import type { CaseData } from '../types';
@@ -53,6 +56,29 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
 
       {/* The Printable One-Page Proof Pack Document */}
       <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm p-4 sm:p-8 space-y-6 sm:space-y-8 print:border-none print:shadow-none print:p-0">
+        {/* Synthetic Notice & Watermark Bar */}
+        <div className="bg-amber-50 border border-amber-200/80 rounded-lg p-2.5 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-[11px] text-amber-800">
+          <div className="flex items-center space-x-2">
+            <span className="font-bold">⚠ SYNTHETIC DATA NOTICE:</span>
+            <span>All borrower records, GSTINs, and statements are synthetic fixture data.</span>
+          </div>
+          <span className="font-mono text-[10px] text-amber-700 bg-amber-100 px-2 py-0.5 rounded self-start sm:self-auto">
+            NOT FOR LIVE CREDIT DISBURSAL
+          </span>
+        </div>
+
+        {/* Cryptographic Ledger & Audit Stamp */}
+        <div className="flex flex-wrap items-center justify-between gap-3 p-3 bg-slate-50 border border-slate-200 rounded-lg text-xs font-mono">
+          <div className="flex items-center space-x-2 text-slate-700">
+            <Fingerprint className="w-4 h-4 text-brand-600" />
+            <span>SHA-256 HASH: <span className="text-slate-900 font-bold">e4c19bf02...89a2</span></span>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Lock className="w-3.5 h-3.5 text-emerald-600" />
+            <span className="text-emerald-700 font-bold">LEDGER: PENDING_APPROVAL (0-DISBURSAL ENFORCED)</span>
+          </div>
+        </div>
+
         {/* Memo Meta Header */}
         <div className="flex justify-between items-start border-b border-slate-200 pb-6">
           <div>
@@ -209,6 +235,30 @@ export const CamProofPackScreen: React.FC<CamProofPackScreenProps> = ({
             </p>
           </div>
         )}
+
+        {/* Citation Provenance Ledger for Institutional Verification */}
+        <div className="space-y-2 border-t border-slate-200 pt-4 text-[11px] text-slate-600 print-page-break">
+          <div className="flex items-center space-x-1.5">
+            <ShieldCheck className="w-3.5 h-3.5 text-brand-600" />
+            <h4 className="font-bold text-slate-700 uppercase tracking-wider text-[10px]">
+              Cryptographic Evidence Provenance Citations
+            </h4>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 font-mono text-[10px]">
+            <div className="bg-slate-50 p-2 rounded border border-slate-200">
+              <span className="font-bold text-brand-700">[GSTR3B_JUL23]:</span> GSTR-3B monthly return (GSTN ref #GST7729-23)
+            </div>
+            <div className="bg-slate-50 p-2 rounded border border-slate-200">
+              <span className="font-bold text-brand-700">[SBI_STMT_PAGE4]:</span> SBI Current A/c #3098271 inward credit reconciliation
+            </div>
+            <div className="bg-slate-50 p-2 rounded border border-slate-200">
+              <span className="font-bold text-brand-700">[BSES_BILL_AUG23]:</span> BSES Yamuna Power commercial connection #DL-88219
+            </div>
+            <div className="bg-slate-50 p-2 rounded border border-slate-200">
+              <span className="font-bold text-brand-700">[UDYAM_DL01A]:</span> Udyam Registration Certificate (MCA / MSME Registry)
+            </div>
+          </div>
+        </div>
 
         {/* Human Sign-off Bottom line */}
         <div className="pt-6 border-t border-slate-200 flex justify-between items-end text-xs text-slate-500">

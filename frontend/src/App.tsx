@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { EntryScene } from './components/EntryScene';
+import { JudgeTour } from './components/JudgeTour';
 import { LandingScreen } from './screens/LandingScreen';
 import { AgentTheatreScreen } from './screens/AgentTheatreScreen';
 import { CaseQueueScreen } from './screens/CaseQueueScreen';
@@ -164,6 +165,8 @@ export const App: React.FC = () => {
           <DemoVideoScreen />
         )}
       </main>
+
+      <JudgeTour />
     </div>
   );
 };
